@@ -29,8 +29,12 @@ abstract class DAO implements CRUDInterface, RepositoryInterface{
      * 
      */
     function __construct() {
+        $DS = DIRECTORY_SEPARATOR;
+        $directory = explode($DS, __DIR__);
+        unset($directory[count($directory)-1]);
+        $root = implode($DS, $directory);
         if(is_null(DAO::$pdo)){
-            $config = json_decode(file_get_contents("./config/database.json"), true);
+            $config = json_decode(file_get_contents($root . $DS . "config". $DS ."database.json"), true);
             DAO::$pdo = new PDO(
                     $config['driver'] . ":"
                     . "host=" . $config['host']

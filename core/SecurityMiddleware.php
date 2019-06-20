@@ -16,7 +16,8 @@ use UserInterface;
  *
  * @author loic
  */
-class SecurityMiddleware {
+class SecurityMiddleware
+{
 
     /**
      * 
@@ -36,13 +37,14 @@ class SecurityMiddleware {
      *
      * @var int durée du token. Par défaut 24h
      */
-    private $expiration = (60*60*24);
+    private $expiration = (60 * 60 * 24);
 
     /**
      * Setter pour modifier l'expiration du token
      * @param int $expiration
      */
-    public function setExpiration($expiration) {
+    public function setExpiration($expiration)
+    {
         $this->expiration = $expiration;
     }
 
@@ -56,16 +58,18 @@ class SecurityMiddleware {
      * 
      * @return string Le token généré
      */
-    public function generateToken($user) {
+    public function generateToken($user)
+    {
         $this->payload = array(
             "username" => $user->getUsername(),
             "roles" => $user->getRoles(),
             "exp" => time() + $this->expiration
         );
         $tkn = JWT::encode($this->payload, $this->passport);
-        setcookie("tkn", $tkn, $this->payload['exp'], "http://" . $_SERVER['SERVER_NAME']);
+        setcookie("tkn", $tkn, $this->payload['exp'], "/", "");
+
         return $tkn;
-        
+
     }
 
     /**
@@ -74,7 +78,8 @@ class SecurityMiddleware {
      * @param string $jwt le token reçu par le serveur
      * @return mixed le payload si le token est valide, faux dans LES cas contraires.
      */
-    public function verifyToken($jwt) {
+    public function verifyToken($jwt)
+    {
         try {
             return JWT::decode($jwt, $this->passport, array('HS256'));
         } catch (Exception $ex) {
@@ -89,7 +94,8 @@ class SecurityMiddleware {
      * 
      * @return mixed le payload si le token est valide, faux dans LES cas contraires. 
      */
-    public function acceptConnexion() {
+    public function acceptConnexion()
+    {
         $tkn = (isset($_COOKIE['tkn'])) ? $_COOKIE['tkn'] : null;
         return $this->verifyToken($tkn);
     }
@@ -98,8 +104,9 @@ class SecurityMiddleware {
      * Désactive le cookie du coté serveur
      * @return boolean true si la modification a fonctionnée, false dans le cas contraire
      */
-    public function deactivate() {
-        return setcookie("tkn", null, time());
+    public function deactivate()
+    {
+        setcookie("tkn", null, time());
     }
 
 }

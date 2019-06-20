@@ -7,7 +7,8 @@ namespace BWB\Framework\mvc;
  *
  * @author loic
  */
-class Routing {
+class Routing
+{
 
     /**
      *
@@ -44,10 +45,16 @@ class Routing {
      */
     private $method;
 
-    function __construct() {
+
+    function __construct()
+    {
+        $DS = DIRECTORY_SEPARATOR;
+        $directory = explode($DS, __DIR__);
+        unset($directory[count($directory) - 1]);
+        $root = implode($DS, $directory);
         $this->config = json_decode(
-                file_get_contents($_SERVER['DOCUMENT_ROOT'] . "/config/routing.json")
-                , true
+            file_get_contents($root . $DS . "config" . $DS . "routing.json"),
+            true
         );
         $this->args = array();
     }
@@ -55,17 +62,19 @@ class Routing {
     /**
      * Execute l'algorithme de routing
      */
-    public function execute() {
-        $this->uri = explode("/", $_SERVER['REQUEST_URI']);
+    public function execute()
+    {
+        $uri = explode("?", $_SERVER['REQUEST_URI'])[0];
+        $this->uri = explode("/", $uri);
         $this->method = $_SERVER['REQUEST_METHOD'];
         foreach ($this->config as $key => $value) {
             $this->route = explode("/", $key);
             $this->controller = "BWB\\Framework\\mvc\\controllers\\" . $this->getValue($value);
             if ($this->isEqual()) {
-                if($this->compare()){
+                if ($this->compare()) {
                     break;
                 }
-                
+
             }
         }
     }
@@ -73,9 +82,10 @@ class Routing {
     /**
      * Compare la longueur des tableaux
      */
-    private function isEqual() {
-        if(strpos($this->uri[count($this->uri)-1],"?") === 0){
-            unset($this->uri[count($this->uri)-1]);
+    private function isEqual()
+    {
+        if (strpos($this->uri[count($this->uri) - 1], "?") === 0) {
+            unset($this->uri[count($this->uri) - 1]);
         }
         return (count($this->uri) === count($this->route)) ? true : false;
     }
@@ -83,18 +93,20 @@ class Routing {
     /**
      * Retourne la clé (le controleur) dans le tableau des routes
      */
-    private function getValue($value) {
+    private function getValue($value)
+    {
         if (is_array($value)) {
             return (isset($value[$this->method])) ? $value[$this->method] : null;
         } else {
-            return  $value;
+            return $value;
         }
     }
 
     /**
      * Ajoute l'element variable de l'URI dans la liste des arguments
      */
-    private function addArgument($i) {
+    private function addArgument($i)
+    {
         if (!empty($this->route[$i])) {
             $pos = strpos("(:)", $this->route[$i]);
             if ($pos === 0) {
@@ -109,7 +121,8 @@ class Routing {
      * Effectue la comparaison des elements 
      * entre l'URI et la route
      */
-    private function compare() {
+    private function compare()
+    {
         for ($index = 0; $index < count($this->route); $index++) {
             if ($this->route[$index] !== $this->uri[$index]) {
                 if (!$this->addArgument($index)) {
@@ -123,7 +136,8 @@ class Routing {
     /**
      * Invoque la methode selectionnée
      */
-    private function invoke() {
+    private function invoke()
+    {
         $elements = explode(":", $this->controller);
 
         $object = new $elements[0]();

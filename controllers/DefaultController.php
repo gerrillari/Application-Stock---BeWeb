@@ -4,6 +4,8 @@ namespace BWB\Framework\mvc\controllers;
 
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\models\DefaultModel;
+use BWB\Framework\mvc\models\TestModel;
+use Exception;
 
 /**
  * Ceci est un exemple de contrôleur 
@@ -12,17 +14,18 @@ use BWB\Framework\mvc\models\DefaultModel;
  *
  * @author loic
  */
-class DefaultController extends Controller {
+class DefaultController extends Controller
+{
 
     /**
      * Le constructeur de la classe Controller charge les datas passées par le client,
-     * Pour charger le security middleware, le contrôleur concret invoque la methode
+     * Pour charger le security middleware, le contrôleur parent invoque la methode
      * @see \BWB\Framework\mvc\Controller::securityLoader() 
-     * pour charger la couche securité.
+     * pour charger la couche securité afin de l'injecter dans l'objet response gerant l'affichage.
      */
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
-        $this->securityLoader();
     }
 
     /**
@@ -30,8 +33,9 @@ class DefaultController extends Controller {
      * 
      * @link / methode invoquée lors d'une requête à la racine de l'application
      */
-    public function getDefault() {
-        $this->render("default");
+    public function getDefault()
+    {
+        $this->response->render("default");
     }
 
     /**
@@ -42,7 +46,8 @@ class DefaultController extends Controller {
      * @link /login URI definie dans le fichier config/routing.json     * 
      * 
      */
-    public function login() {
+    public function login()
+    {
         $this->security->generateToken(new DefaultModel());
         header("Location: http://" . $_SERVER['SERVER_NAME'] . "/token");
     }
@@ -55,7 +60,8 @@ class DefaultController extends Controller {
      * @link /logout URI definie dans le fichier config/routing.json  
      * 
      */
-    public function logout() {
+    public function logout()
+    {
         $this->security->deactivate();
         header("Location: http://" . $_SERVER['SERVER_NAME'] . "/token");
     }
@@ -69,12 +75,13 @@ class DefaultController extends Controller {
      * @link /token URI definie dans le fichier config/routing.json     * 
      * 
      */
-    public function token() {
+    public function token()
+    {
         var_dump($this->security->acceptConnexion());
     }
 
     /* Les methodes suivantes correspondent aux URI de test qui gèrent les verbes HTTP */
-    
+
     /** 
      * Exemple d'utilisation avec la superglobale $_GET
      * 
@@ -82,10 +89,11 @@ class DefaultController extends Controller {
      * 
      * @example /api/default/?test=petitMessage&key=valeur2 avec cette URI la methode retourne un tableau associatif correspondant aux données passées en arguments à l'URL
      */
-    public function getDatasFromGET(){
+    public function getDatasFromGET()
+    {
         var_dump($this->inputGet());
     }
-    
+
     /** 
      * Exemple d'utilisation avec la superglobale $_POST
      * 
@@ -93,10 +101,11 @@ class DefaultController extends Controller {
      * 
      * @example /api/default ajouter dans le corps de la requete des données au format : x-www-form-urlencoded
      */
-    public function getDatasFromPOST(){
+    public function getDatasFromPOST()
+    {
         var_dump($this->inputPost());
     }
-    
+
     /** 
      * Exemple d'utilisation avec la mise a jour d'une ressource via la methode PUT 
      * 
@@ -104,22 +113,24 @@ class DefaultController extends Controller {
      * 
      * @example /api/default ajouter dans le corps de la requete des données au format : x-www-form-urlencoded
      */
-    public function getDatasFromPUT(){
+    public function getDatasFromPUT()
+    {
         var_dump($this->inputPut());
     }
-    
+
     /** 
      * Ici la methode sera invoquée lors d'une requête HTTP dont le verbe est DELETE. 
      * L'exemple retourne les données des propriétés put, post et get. 
      * 
      * N'hésitez pas tester !
      */
-    public function delete(){
+    public function delete()
+    {
         var_dump($this->inputPut());
         var_dump($this->inputPost());
         var_dump($this->inputGet());
     }
-    
+
     /**
      * La methode affiche les données variables de l'URI comme definies dans le fichier routing.json. 
      * 
@@ -129,7 +140,34 @@ class DefaultController extends Controller {
      * @example /api/default/bonjour retournera bonjour. 
      * @example /api/default/32 retournera 32. 
      */
-    public function getByValue($value){
+    public function getByValue($value)
+    {
         echo "valeur passée dans l'uri : " . $value;
+    }
+
+
+
+    public function test()
+    {
+        $r = new \BWB\Framework\mvc\Request();
+        var_dump($r->post(TestModel::class));
+        var_dump($r->put(TestModel::class));
+    }
+
+    public function getViewFiles()
+    {
+        $this->render("form-upload");
+    }
+    public function uploadFiles()
+    {
+        var_dump($_FILES);
+
+    }
+
+    public function getJSON()
+    {
+        $this->response->sendJSON(array(
+            "toto" => "tata"
+        ));
     }
 }
