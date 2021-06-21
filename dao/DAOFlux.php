@@ -83,7 +83,18 @@ function updateDeliveryPath($deliveryID, $newOrigin, $newDestination){
  * présent pour chacun de ces entrepôts
 */
 
- function getAviableStorages($deliveryID){
+ function getAviableStorages($storageID){
+
+    $query = "SELECT storage.id, storage.name,  adress.city, adress.zipcode, adress.street,
+    adress.number, item_storage.itemid, item_storage.quantity, product.size, product.weight
+    FROM item_storage
+    INNER JOIN storage on storage.id = {$storageID}
+    INNER JOIN adress on adress.id = storage.location
+    INNER JOIN item on item.id = item_storage.itemid
+    INNER JOIN product on product.id = item.productid
+    WHERE item_storage.storageid = {$storageID}";
+
+    return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
  }
 
@@ -93,6 +104,14 @@ function updateDeliveryPath($deliveryID, $newOrigin, $newDestination){
 */
  function getDeliveryProducts($deliveryID){
 
+    $query = "SELECT item.id, shipment_item.quantity, product.weight, product.size,
+    product.name, product.description
+    FROM shipment_item
+    INNER JOIN item ON item.id = shipment_item.itemid
+    INNER JOIN product ON product.id = item.productid
+    WHERE shipment_item.shipmentid = {$deliveryID}";
+
+    return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
  }
 
 }
