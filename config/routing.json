@@ -17,5 +17,8 @@
     "/files/upload-form":"DefaultController:getViewFiles",
     "/files/upload":{
         "POST": "DefaultController:uploadFiles"
+    },
+    "/storages":{
+        "GET": "DAODefault:getAll"
     }
 }
