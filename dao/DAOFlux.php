@@ -33,7 +33,7 @@ function getCurrentDeliveries(){
 
  function getDeliveryInfo($deliveryID){
 
-        $query = "  SELECT storage.name, adress.city, adress.zipcode, adress.street, adress.number,
+        $query = "SELECT storage.name, adress.city, adress.zipcode, adress.street, adress.number,
         shipment_item.quantity, product.size, product.weight 
         FROM shipment_item
         INNER JOIN shipment ON shipment.id = {$deliveryID}
@@ -49,28 +49,31 @@ function getCurrentDeliveries(){
 
 /**
  * Retourne le nom et l'adresse de l'entrepôt d'origine et de destination,
- * ainsi que la date de départ et la date de fin de la liraison
+ * ainsi que la date de départ et la date de fin de la livraison
 */
 
 function getDeliveryPath($deliveryID){
-    $query = "  SELECT storage.name, adress.city, adress.zipcode, adress.street, adress.number,
-    shipment_item.quantity, product.size, product.weight 
-    FROM shipment_item
-    INNER JOIN shipment ON shipment.id = {$deliveryID}
+    $query = "SELECT storage.name, adress.city, adress.zipcode, adress.street, adress.number,
+    shipment.datestart, shipment.dateend
+    FROM shipment
     INNER JOIN storage ON storage.id = shipment.origin OR storage.id = shipment.destination
     INNER JOIN adress ON adress.id = storage.location
-    INNER JOIN item ON item.id = shipment_item.itemid
-    INNER JOIN product ON product.id = item.productid
-    WHERE shipment_item.shipmentid = {$deliveryID}";
+    WHERE shipment.id = {$deliveryID}";
 
     return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
- * Met à jour l'adresse de l'entrepôt d'origine et de destination
+ * Met à jour l'adresse d'origin et de destination d'une livraison
  */
 
 function updateDeliveryPath($deliveryID, $newOrigin, $newDestination){
+
+    $query = "UPDATE shipment
+    SET origin = {$newOrigin}, destination = {$newDestination}
+    WHERE shipment.id = {$deliveryID}";
+
+    return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
 }
 
