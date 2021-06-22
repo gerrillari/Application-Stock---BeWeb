@@ -1,6 +1,7 @@
 <?php
 namespace BWB\Framework\mvc\dao;
 use BWB\Framework\mvc\DAO;
+use PDO;
 
 /**
  * Ce DAO remonte les information liées aux flux de produits a travres len entrepôts
@@ -20,7 +21,7 @@ function getCurrentDeliveries(){
               FROM shipment
               WHERE dateend IS NULL";
 
-    return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    return $this->getPdo()->query($query)->fetchAll(PDO::FETCH_ASSOC);
    
 }
 
@@ -43,7 +44,7 @@ function getCurrentDeliveries(){
         INNER JOIN product ON product.id = item.productid
         WHERE shipment_item.shipmentid = {$deliveryID}";
 
-        return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+        return $this->getPdo()->query($query)->fetchAll(PDO::FETCH_ASSOC);
  }
 
 
@@ -60,7 +61,7 @@ function getDeliveryPath($deliveryID){
     INNER JOIN adress ON adress.id = storage.location
     WHERE shipment.id = {$deliveryID}";
 
-    return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    return $this->getPdo()->query($query)->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -73,7 +74,7 @@ function updateDeliveryPath($deliveryID, $newOrigin, $newDestination){
     SET origin = {$newOrigin}, destination = {$newDestination}
     WHERE shipment.id = {$deliveryID}";
 
-    return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    return $this->getPdo()->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
 }
 
@@ -94,7 +95,7 @@ function updateDeliveryPath($deliveryID, $newOrigin, $newDestination){
     INNER JOIN product on product.id = item.productid
     WHERE item_storage.storageid = {$storageID}";
 
-    return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    return $this->getPdo()->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
  }
 
@@ -111,7 +112,32 @@ function updateDeliveryPath($deliveryID, $newOrigin, $newDestination){
     INNER JOIN product ON product.id = item.productid
     WHERE shipment_item.shipmentid = {$deliveryID}";
 
-    return $this->pdo->query($query)->fetchAll(PDO::FETCH_ASSOC);
+    return $this->getPdo()->query($query)->fetchAll(PDO::FETCH_ASSOC);
  }
 
+ public function create($array) {
+        
 }
+
+public function delete($id) {
+    
+}
+
+public function getAll() {
+    
+}
+
+public function getAllBy($filter) {
+    
+}
+
+public function retrieve($id) {
+    
+}
+
+public function update($array) {
+    
+}
+
+}
+
