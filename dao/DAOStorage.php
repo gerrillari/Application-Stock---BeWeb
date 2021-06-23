@@ -225,9 +225,6 @@ class DAOStorage extends DAO {
             return $ProductCommandPercent;
     }
 
-    public function LocationStorage($StorageID) {
-        
-    }
 }
 
 //Code à mettre dans le storage.php afin d'afficher l'adresse complète concaténée 
