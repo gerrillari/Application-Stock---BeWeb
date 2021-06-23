@@ -5,6 +5,8 @@ namespace BWB\Framework\mvc\controllers;
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\models\DefaultModel;
 use BWB\Framework\mvc\models\TestModel;
+
+use BWB\Framework\mvc\dao\DAOStorage;
 use Exception;
 
 /**
@@ -170,4 +172,5 @@ class DefaultController extends Controller
             "toto" => "tata"
         ));
     }
+
 }
