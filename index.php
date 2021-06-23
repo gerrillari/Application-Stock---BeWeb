@@ -5,8 +5,11 @@ use BWB\Framework\mvc\Routing;
 include "vendor/autoload.php";
 
 include ("./views/head.php");
-include ("./views/sidebar.php");
+//include ("./views/sidebar.php");
 
 // A chaque requete emise nous lançons le mecanisme de routage
 (new Routing())->execute();
 
+?>
+
+</body>

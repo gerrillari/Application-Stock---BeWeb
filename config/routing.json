@@ -1,6 +1,6 @@
 {
     "/": "DashboardController:dashboard",
-    "/flux": "FluxController:list",
+    "/flux": "FluxController:renderList",
     "/flux/(:)": "FluxController:detail",
     "/products": "ProductController:list",
     "/products/(:)": "ProductController:detail",

@@ -17,7 +17,7 @@ class DAOFlux extends DAO{
 
 function getCurrentDeliveries(){
 
-    $query = "SELECT id, origin, sizelimit, weightlimit, datestart 
+    $query = "SELECT id 
               FROM shipment
               WHERE dateend IS NULL";
 
@@ -34,8 +34,10 @@ function getCurrentDeliveries(){
 
  function getDeliveryInfo($deliveryID){
 
-        $query = "SELECT storage.name, adress.city, adress.zipcode, adress.street, adress.number,
-        shipment_item.quantity, product.size, product.weight 
+        $query = "SELECT shipment.id, shipment.origin, shipment.destination,
+        shipment.sizelimit, shipment.weightlimit, shipment.datestart,
+        storage.name, adress.city, adress.zipcode, adress.street, adress.number,
+        shipment_item.quantity, product.size, product.weight
         FROM shipment_item
         INNER JOIN shipment ON shipment.id = {$deliveryID}
         INNER JOIN storage ON storage.id = shipment.origin OR storage.id = shipment.destination
