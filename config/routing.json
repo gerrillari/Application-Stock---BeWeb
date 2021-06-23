@@ -1,5 +1,6 @@
 {
     "/": "DefaultController:getDefault",
+    "/storages": "DefaultController:getAllStorages",
     "/test": "DefaultController:test",
     "/login": "DefaultController:login",
     "/logout": "DefaultController:logout",
