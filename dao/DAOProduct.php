@@ -90,24 +90,27 @@ class DAOProduct extends DAO {
      * 
      * $datestart = chaine de caractere correspondant a une date 'YYYY-MM-DD'
      */
-    private function getProductStockByDate($idProduct, $datestart = NULL, $dateend){
+    private function getProductStockByDate($idProduct, $date){
 
-        #stock du produit
-        $actualStock = getProductStock(idProduct);
+        #stock produit
+        $actualStock = getProductStock(idProduct); 
+        #calculer chaque element du tableaux
+        $actualStock = array_sum($actualStock);
 
-        #s'il n'y a une date de début
-        if($datestart == NULL){
-            #CURDATE() = date courante 
-            $shipmentQty = $this->getPdo()->query("SELECT quantity FROM shipment INNER JOIN shipment_item ON  '${dateend}' < CURDATE() WHERE itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
 
-            $commandQty = $this->getPdo()->query("SELECT quantity FROM command INNER JOIN command_item_storage ON  '${dateend}' < CURDATE() WHERE itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
-        }else{
-            $shipmentQty = $this->getPdo()->query("SELECT quantity FROM shipment INNER JOIN shipment_item ON  '${dateend}' < '${datestart}' WHERE itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
+        $shipmentQty = $this->getPdo()->query("SELECT quantity FROM shipment_item INNER JOIN shipment ON  '${date}' < CURDATE() WHERE itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
+        #calculer chaque element du tableaux
+        $shipmentQty = array_sum($shipmentQty);
 
-            $commandQty = $this->getPdo()->query("SELECT quantity FROM command INNER JOIN command_item_storage ON  '${dateend}' < '${datestart}' WHERE itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
-        }
+        $commandQty = $this->getPdo()->query("SELECT quantity FROM command_item_storage  INNER JOIN command ON '${dateend}' < CURDATE() WHERE itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
+        #calculer chaque element du tableaux
+        $commandQty = array_sum($commandQty);
+        
+        $result = $actualStock - $shipmentQty;
+        $result = $result + $commandQty;
 
-         
+        return $result;
+
     }
 
 
