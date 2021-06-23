@@ -39,7 +39,7 @@ class DAOProduct extends DAO {
     /**
      * Retourne le stock du produit passé en argument.
      */
-    private function getProductStock($idProduct){
+    public function getProductStock($idProduct){
 
         return $this->getPdo()->query("SELECT quantity FROM item WHERE id = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -58,7 +58,7 @@ class DAOProduct extends DAO {
     public function getProducts(){
 
         #infos classic
-        return $this->getPdo()->query("SELECT product.description, product.price, product.weight, product.name, item.quantity FROM item INNER JOIN product on item.productid = product.id ")->fetchAll(PDO::FETCH_ASSOC);
+        return $this->getPdo()->query("SELECT  product.id, product.size, product.description, product.price, product.weight, product.name, item.quantity FROM item INNER JOIN product on item.productid = product.id ")->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
