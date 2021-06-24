@@ -178,9 +178,9 @@ class DefaultController extends Controller
             "storages"=>(new DAOStorage())->getNameStorage(),
             "adresses"=>(new DAOStorage())->getAllAdressStorage(),
             "status"=>(new DAOStorage())->getStatutStorage(),
-            "stock"=>(new DAOStorage())->getStockStoragePercentage(),
-            "delivery"=>(new DAOStorage())->getDeliveryStoragePercentage(),
-            "command"=>(new DAOStorage())->getCommandStoragePercentage()
+            //"stock"=>(new DAOStorage())->getStockStoragePercentage(),
+            //"delivery"=>(new DAOStorage())->getDeliveryStoragePercentage(),
+            //"command"=>(new DAOStorage())->getCommandStoragePercentage()
         );
         $this->render("StoragesList",$data);
     }

@@ -21,7 +21,7 @@ $data = [
         'label' => 'flux_entrant'
 
     ],[
-        'data' =>[], #???
+        'data' =>[], 
         'label' => 'flux_sortant'
     ]]
 ];
@@ -81,12 +81,13 @@ var attribution = new ol.control.Attribution({
 <!--TABLEAU -->
 <div class="container">
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-9">
 		<div class="main-box clearfix">
 			<div class="table-responsive">
 				<table class="table user-list">
 					<tbody>
-					
 						<tr>
 							<td>
                 				<a>NAME</a>

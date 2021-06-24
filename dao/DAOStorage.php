@@ -98,48 +98,29 @@ class DAOStorage extends DAO {
 
     public function getStatutStorage() {
 
-            $sizeStorage=$this->getPdo()->query(
-            "SELECT id,sizelimit FROM storage"
-            )->fetchAll(PDO::FETCH_ASSOC);
-            //$size=array_sum($sizeStorage);
-       
-            $getStockStorage=$this->getPdo()->query(
-            "SELECT SUM(item_storage.quantity * product.size)            
-            FROM item_storage 
-            INNER JOIN item ON item_storage.itemid = item.id 
-            INNER JOIN product ON item.productid = product.id"
-            )->fetchAll(PDO::FETCH_ASSOC);
-            //$Stock=array_sum($getStockStorage);
+            /*$capacity= */return $this->getPdo()->query(
+                "SELECT item_storage.storageid, storage.sizelimit as sizestorage, item_storage.quantity as stock, shipment_item.quantity as delivery, command_item_storage.quantity as command, product.size as sizeproduct
+                FROM item_storage
+                INNER JOIN storage ON storage.id = item_storage.storageid
+                INNER JOIN shipment_item ON shipment_item.itemid = item_storage.itemid
+                INNER JOIN command_item_storage ON command_item_storage.itemid = item_storage.itemid
+                INNER JOIN item ON item.id = item_storage.itemid 
+                INNER JOIN product ON product.id = item.productid"
+                )->fetchAll(PDO::FETCH_ASSOC);
 
-            $getDeliveryStorage= $this->getPdo()->query(
-            "SELECT SUM(shipment_item.quantity * product.size) 
-            FROM shipment_item
-            INNER JOIN item ON shipment_item.itemid = item.id 
-            INNER JOIN product ON item.productid = product.id
-            INNER JOIN shipment ON shipment_item.shipmentid = shipment.id
-            WHERE shipment.dateend <= curdate()"
-            )->fetchAll(PDO::FETCH_ASSOC);
-            //$Delivery=array_sum($getDeliveryStorage);
+                /*$resultCapacity = array();
 
-            $getCommandStorage= $this->getPdo()->query(
-            "SELECT SUM(command_item_storage.quantity * product.size) 
-            FROM command_item_storage
-            INNER JOIN item ON command_item_storage.itemid = item.id 
-            INNER JOIN product ON item.productid = product.id
-            INNER JOIN command ON command_item_storage.commandid = command.id
-            WHERE command.dateend <= curdate()"
-            )->fetchAll(PDO::FETCH_ASSOC);
-            //$Command=array_sum($getCommandStorage);           
+                foreach ($storages as $storage) {
+                        var_dump($storage);
+                }
 
-           //$Status = (($getStockStorage + $getDeliveryStorage - $getCommandStorage)/$sizeStorage )*100;
-
-        var_dump($getStockStorage);
-        var_dump($getDeliveryStorage);
-        var_dump($getCommandStorage);
-        //var_dump($sizeStorage);
-
-            //return $Status;
+                $merde = $capacity["stock"];
+                //var_dump($capacity);
+                //var_dump($merde);
+                return $merde;*/
     }
+
+    //WHERE item_storage.storageid= 2
 
     public function getStockStoragePercentage() {
        
@@ -339,6 +320,8 @@ class DAOStorage extends DAO {
 
             return $ProductCommandPercent;
     }
+
+  
 
 }
 
