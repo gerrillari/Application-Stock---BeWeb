@@ -11,5 +11,3 @@ include ("./views/head.php");
 (new Routing())->execute();
 
 ?>
-
-</body>

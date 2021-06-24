@@ -5,7 +5,10 @@ namespace BWB\Framework\mvc\controllers;
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\models\DefaultModel;
 use BWB\Framework\mvc\models\TestModel;
+
+use BWB\Framework\mvc\dao\DAOProduct;
 use Exception;
+
 
 /**
  * Ceci est un exemple de contrôleur 
@@ -170,4 +173,5 @@ class DefaultController extends Controller
             "toto" => "tata"
         ));
     }
+
 }

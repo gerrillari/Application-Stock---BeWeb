@@ -13,7 +13,7 @@ namespace BWB\Framework\mvc\models;
  *
  * @author loic
  */
-class TestModel {
+class TestModel extends DAODefault {
     private $nom,$prenom;
     
     function getNom() {
@@ -30,7 +30,5 @@ class TestModel {
 
     function setPrenom($prenom) {
         $this->prenom = $prenom;
-    }
-
-    
+    } 
 }
