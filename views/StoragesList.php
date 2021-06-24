@@ -1,7 +1,7 @@
 <body>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/less/mixins/gradients.less" rel="stylesheet">
-<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/less/progress-bars.less" rel="stylesheet">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <div class="container">
 <div class="row">
 	<div class="col-lg-12">
@@ -12,25 +12,30 @@
           <? foreach ($storages as $index=>$storage):?>
 						<tr>
 							<td>
-                <a><?=$storage["name"]?></a>
+                				<a><?=$storage["name"]?></a>
 								</br>
-                <a><?=$adresses[$index]["number"]." ".$adresses[$index]["street"]." - ".$adresses[$index]["city"]." ".$adresses[$index]["zipcode"]?></a>
+                				<a><?=$adresses[$index]["number"]." ".$adresses[$index]["street"]." - ".$adresses[$index]["city"]." ".$adresses[$index]["zipcode"]?></a>
 							</td>
 							<td class="text-center">
-								<a class="label label-default"><?=$status[$index]["$Stock"]?></a>
+								<a class="label label-default"><?=var_dump($getDeliveryStorage)?></a>
 							</td>
-							<td style="width: 20%;">
-								<div class="project-progress pull-left">
-                  <span class="task-title">Stage completed: <span><?$stock[$index]["$StockPercent"]?>/<?$delivery[$index]["$DeliveryPercent"]?>/<?$command[$index]["$CommandPercent"]?></span></span>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-success" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="width: 35%;">
-                    </div>
-                    <div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
-                    </div>
-                    <div class="progress-bar progress-bar-striped progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
-                    </div>
-                  </div>
-                </div>
+							<td>
+								<div class="progress progress-xs">
+									<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<?$delivery[$index]?>" aria-valuemin="0" aria-valuemax="100" style="width: <?$delivery[$index]?>%">
+										<span class=""><?$delivery[$index]?></span>
+									</div>
+									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+										<span class="">9%</span>
+									</div>
+									<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+										<span class="">1%</span>
+									</div>
+								</div>
+
+								
+								
+							</td>
+        
 							</td>
 						</tr> 
           <? endforeach ?>
@@ -228,10 +233,13 @@ body{margin-top:20px;}
 	color: #a75d54;
 }
 /*PERCETANGE BAR*/
-.project-box .project-progress .progress {
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    margin-bottom: 0;
+
+.progress-bar {
+  box-shadow: none;
+  line-height: 15px;
+  text-align: right;
+  padding-right: 10px;
+  font-size: 11px;
 }
 
 </style>
