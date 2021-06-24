@@ -1,4 +1,5 @@
 
+
 <body class="h-screen overflow-hidden flex flex-col items-center justify-center">
 
     <div class="w-3/4 flex flex-col items-center justify-center h-screen select-none">
@@ -9,15 +10,18 @@
 
                 <div class="relative w-full mb-3">
                     <p class="text-center p-2">Shipment Path</p>
-                    <?= $origin ?>
                 </div>          
                 <div class="relative w-full mb-3">
                     <p class="p-2 text-red-500">Origin Storage : </p>
-                    <?= $origin ?>
+                    <?= $path[0]["name"] ?>
+                    <br>
+                    <?= $path[0]["number"]." Rue ".$path[0]["street"]." ".$path[0]["zipcode"]." ".$path[0]["city"] ?>
                 </div>
                 <div class="relative w-full mb-3">
                     <p class="p-2 text-red-500">Destination Storage : </p>
-                    <?= $destination ?>
+                    <?= $path[1]["name"] ?>
+                    <br>
+                    <?= $path[1]["number"]." Rue ".$path[1]["street"]." ".$path[1]["zipcode"]." ".$path[1]["city"] ?>
                 </div>
                 <div class="text-center mt-6">
                     
@@ -29,7 +33,7 @@
     </div>
 </div>
 
-<div>
+<div class= "mt-12">
     <h1 class="text-center"> Shipment Content </h1>
     <div class="md:px-32 py-8 w-full">
   <div class="shadow overflow-hidden rounded border-b border-gray-200">
@@ -47,12 +51,12 @@
     <tbody class="text-gray-700">
     <?php foreach($products as $product): ?>
       <tr>
-        <td class="w-1/3 text-left py-3 px-4">Lian</td>
-        <td class="w-1/3 text-left py-3 px-4">Smith</td>
-        <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="tel:622322662">622322662</a></td>
-        <td class="text-left py-3 px-4"><a class="hover:text-blue-500" href="mailto:jonsmith@mail.com">jonsmith@mail.com</a></td>
-        <td class="w-1/3 text-left py-3 px-4">Lian</td>
-        <td class="w-1/3 text-left py-3 px-4">Smith</td>
+        <td class="w-1/3 text-left py-3 px-4"><a class="hover:text-blue-500" href="#"><?= $product["name"] ?></td>
+        <td class="w-1/3 text-left py-3 px-4"><?= $product["weight"] ?></td>
+        <td class="text-left py-3 px-4"><?= $product["size"] ?></a></td>
+        <td class="text-left py-3 px-4"><?= $product["weight"]*$product["quantity"] ?></a></td>
+        <td class="w-1/3 text-left py-3 px-4"><?= $product["size"]*$product["quantity"] ?></td>
+        <td class="w-1/3 text-left py-3 px-4"><?= $product["quantity"]?></td>
       </tr>
     <?php endforeach ?>
     </tbody>
