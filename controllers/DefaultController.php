@@ -185,4 +185,11 @@ class DefaultController extends Controller
         $this->render("StoragesList",$data);
     }
 
+    public function getStorage(){
+        $data = array(
+            
+        );
+        $this->render("StorageDetail",$data);
+    }
+
 }
