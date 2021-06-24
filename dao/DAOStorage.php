@@ -342,6 +342,3 @@ class DAOStorage extends DAO {
 
 }
 
-//Code à mettre dans le storage.php afin d'afficher l'adresse complète concaténée 
-    //$getAdress = AdressStorage($StorageID);
-    //$getAdress["number"]." ".$getAdress["street"]." ".$getAdress["zipcode"]." ".$getAdress["city"];

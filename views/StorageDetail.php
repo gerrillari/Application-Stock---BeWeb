@@ -1,12 +1,10 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-<!--MAP SCRIPT DEBUT BODY -->
+<!--MAP HEAD -->
 <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css">
 
-<!--GRAPHE SCRIPT DEBUT BODY-->
+<!--GRAPHE SCRIPT DEBUT-->
 <script src="vendor/ejdamm/chart.js-php/js/Chart.min.js"></script>
 <script src="vendor/ejdamm/chart.js-php/js/driver.js"></script>
 <?
@@ -88,42 +86,34 @@ var attribution = new ol.control.Attribution({
 			<div class="table-responsive">
 				<table class="table user-list">
 					<tbody>
+					
 						<tr>
 							<td>
-								<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-								<a href="#" class="user-link">Mila Kunis</a>
-								<span class="user-subhead">Admin</span>
+                				<a>NAME</a>
+								</br>
+                				<a>Description</a>
 							</td>
 							<td>
-								2013/08/08
-							</td>
-							<td class="text-center">
-								<span class="label label-default">Inactive</span>
+								Quantité
 							</td>
 							<td>
-								<a href="#">mila@kunis.com</a>
+								Taille totale
 							</td>
-							<td style="width: 20%;">
-								<a href="#" class="table-link">
-									<span class="fa-stack">
-										<i class="fa fa-square fa-stack-2x"></i>
-										<i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-									</span>
-								</a>
-								<a href="#" class="table-link">
-									<span class="fa-stack">
-										<i class="fa fa-square fa-stack-2x"></i>
-										<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-									</span>
-								</a>
-								<a href="#" class="table-link danger">
-									<span class="fa-stack">
-										<i class="fa fa-square fa-stack-2x"></i>
-										<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-									</span>
-								</a>
+							<td>
+								<div class="progress progress-xs">
+									<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+										<span class="">5%</span>
+									</div>
+									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+										<span class="">9%</span>
+									</div>
+									<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+										<span class="">1%</span>
+									</div>
+								</div>
 							</td>
 						</tr>
+						
 					</tbody>
 				</table>
 			</div>
@@ -315,6 +305,16 @@ body{margin-top:20px;}
 }
 .table-stats .table-line-plus .status-social-icon {
 	color: #a75d54;
+}
+
+/*PERCETANGE BAR*/
+
+.progress-bar {
+  box-shadow: none;
+  line-height: 15px;
+  text-align: right;
+  padding-right: 10px;
+  font-size: 11px;
 }
 
 </style>
