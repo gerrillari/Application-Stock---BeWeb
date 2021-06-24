@@ -1,6 +1,6 @@
 {
     "/": "DefaultController:getDefault",
-    "/test": "DefaultController:test",
+    "/test": "DefaultController:cc",
     "/login": "DefaultController:login",
     "/logout": "DefaultController:logout",
     "/token": "DefaultController:token",

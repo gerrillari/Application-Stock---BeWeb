@@ -41,6 +41,10 @@ class ComposerStaticInit8fe89f1b8f12fd11527e366a1af6206d
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
         ),
+        'C' => 
+        array (
+            'ChartJs\\' => 8,
+        ),
         'B' => 
         array (
             'BWB\\Framework\\mvc\\models\\' => 25,
@@ -88,6 +92,10 @@ class ComposerStaticInit8fe89f1b8f12fd11527e366a1af6206d
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'ChartJs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ejdamm/chart.js-php/src',
         ),
         'BWB\\Framework\\mvc\\models\\' => 
         array (

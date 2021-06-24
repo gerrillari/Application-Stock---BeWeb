@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '679db7f84bca0b68c6828ba7a7b95486484502a6',
+        'reference' => '82b804acb098c84cd1cd6a7b703f0c4fcb2aec00',
         'name' => 'beweb/php-mvc.bwb',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '679db7f84bca0b68c6828ba7a7b95486484502a6',
+            'reference' => '82b804acb098c84cd1cd6a7b703f0c4fcb2aec00',
             'dev_requirement' => false,
         ),
         'doctrine/instantiator' => array(
@@ -27,6 +27,15 @@
             'aliases' => array(),
             'reference' => '8e884e78f9f0eb1329e445619e04456e64d8051d',
             'dev_requirement' => true,
+        ),
+        'ejdamm/chart.js-php' => array(
+            'pretty_version' => 'v2.0',
+            'version' => '2.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ejdamm/chart.js-php',
+            'aliases' => array(),
+            'reference' => '1caa5f9daa1eb4deb97edc8caae59c40d672f46b',
+            'dev_requirement' => false,
         ),
         'firebase/php-jwt' => array(
             'pretty_version' => 'v5.0.0',

@@ -14,8 +14,8 @@
                                     <th class="text-center"><span>Stock</span></th>
                                 </tr>
                             </thead>
-                        <? foreach ($products as $product): ?>
                             <tbody>
+                        <? foreach ($products as $product): ?>
                                 <tr>
                                     <td>
                                         <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
@@ -29,13 +29,16 @@
                                         <span class="label label-default"><?= $product['weight'] ?></span>
                                     </td>
                                     <td>
+
+									<!-- Ne pas oublié de récup l'id du produit sur lequel afficher la quantité -->
                                 <? foreach ($stocks as $stock): ?>
-                                        <p><?= $stock['quantity'] ?></p> 
+                                        <p><?= $stock['quantity'] #getProducStock(id du produit pour afficher son stock) ?></p> 
                                 <? endforeach ?>
                                     </td>
+									
                                 </tr>
-                            </tbody>
                         <? endforeach ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>

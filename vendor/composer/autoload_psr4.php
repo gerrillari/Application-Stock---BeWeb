@@ -15,6 +15,7 @@ return array(
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
+    'ChartJs\\' => array($vendorDir . '/ejdamm/chart.js-php/src'),
     'BWB\\Framework\\mvc\\models\\' => array($baseDir . '/models'),
     'BWB\\Framework\\mvc\\dao\\' => array($baseDir . '/dao'),
     'BWB\\Framework\\mvc\\controllers\\' => array($baseDir . '/controllers'),

@@ -174,4 +174,11 @@ class DefaultController extends Controller
         ));
     }
 
+    function cc(){
+        $data = array(
+            "psd" => (new DAOProduct())->getProductStockByDate(100, '2021-05-16'),
+        );
+        $this->render("ViewProductDetails", $data);
+    }
+
 }
