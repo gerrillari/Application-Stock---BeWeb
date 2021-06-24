@@ -1,8 +1,8 @@
 {
     "driver" : "mysql",
     "host" : "172.17.0.1",
-    "port" : "3306",
-    "dbname" : "usine-ricard",
+    "port" : "8989",
+    "dbname" : "usine_ricard",
     "username" : "root",
     "password" : "root"
 }

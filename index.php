@@ -11,5 +11,8 @@ include ("./views/head.php");
 (new Routing())->execute();
 
 ?>
+<<<<<<< HEAD
 
 </body>
+=======
+>>>>>>> 7fe57cd00f675cf5961447d8f4f035c520391cc2
