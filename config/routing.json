@@ -1,5 +1,10 @@
 {
     "/": "DefaultController:getDefault",
+    "/products" : "ProductController:renderList",
+    "/products/" : "ProductController:renderList",
+    "/products/(:)" :{
+        "GET":"ProductController:renderDetails"
+    },
     "/test": "DefaultController:cc",
     "/login": "DefaultController:login",
     "/logout": "DefaultController:logout",

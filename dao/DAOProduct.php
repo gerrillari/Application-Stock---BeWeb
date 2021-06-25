@@ -41,7 +41,7 @@ class DAOProduct extends DAO {
      */
     public function getProductStock($idProduct){
 
-        return $this->getPdo()->query("SELECT quantity FROM item WHERE id = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
+        return $this->getPdo()->query("SELECT quantity, id FROM item WHERE id = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -49,7 +49,7 @@ class DAOProduct extends DAO {
      */
     public function setProductTreshold($idProduct, $value){
 
-        return $this->getPdo()->query("UPDATE item SET threshold = '${value}' WHERE id = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
+        return $this->getPdo()->query("UPDATE item SET threshold = '${value}' WHERE id = '${idProduct}' ");
     }
 
     /**
@@ -58,29 +58,20 @@ class DAOProduct extends DAO {
     public function getProducts(){
 
         #infos classic
-        return $this->getPdo()->query("SELECT  product.id, product.size, product.description, product.price, product.weight, product.name, item.quantity FROM item INNER JOIN product on item.productid = product.id ")->fetchAll(PDO::FETCH_ASSOC);
+        return $this->getPdo()->query("SELECT item.id, product.description, product.price, product.weight, product.name, item.quantity FROM item INNER JOIN product on item.productid = product.id ")->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
     /**
      * Retourn les informations nécessaire a l'affichage d'une card storage.
      */
-    public function getStorageInfo($idStorage){
+    public function getStorageInfo($idProduct){
 
-        return $this->getPdo()->query("SELECT name, city, zipcode, street, number FROM storage INNER JOIN adress on adress.id = storage.location WHERE storage.id = '${idStorage}' ")->fetch();
-    }
-
-    /**
-     * Trouve le quantité d'un même article dans une livraison
-     * Trouve le quantité d'un même article dans une commande
-     */
-    public function getProductsFlux($idProduct){
-
-        $this->getPdo()->query("SELECT quantity FROM shipment_item WHERE itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->getPdo()->query("SELECT quantity FROM command_item_storage WHERE itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
-    }
-            
+        return $this->getPdo()->query("SELECT storage.name, adress.city, adress.zipcode, adress.street, adress.number, item_storage.quantity FROM item_storage
+                INNER JOIN storage ON storage.id = item_storage.storageid
+                INNER JOIN adress ON adress.id = storage.location
+            WHERE item_storage.itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
+    }     
 
 
     /**
@@ -105,49 +96,40 @@ class DAOProduct extends DAO {
     public function getProductStockByDate($idProduct, $date){
 
         #stock produit
-        $actualStock = $this->getPdo()->query("SELECT item.quantity FROM item INNER JOIN product on item.productid = product.id ")->fetchAll(PDO::FETCH_ASSOC); 
+        $actualStock = $this->getPdo()->query("SELECT quantity FROM item WHERE id = '{$idProduct}' ")->fetchAll(PDO::FETCH_ASSOC); 
+
+        $shipmentQty = $this->getPdo()->query(
+            "SELECT shipment_item.quantity, shipment.dateend FROM shipment_item 
+                INNER JOIN shipment ON shipment.id = shipment_item.shipmentid
+            WHERE shipment_item.itemid = '${idProduct}' AND shipment.dateend <= '${date}'"
+            )->fetchAll(PDO::FETCH_ASSOC);
+
         #calculer chaque element du tableaux
-        $resultStock = array();
-
-        foreach ($actualStock as $stock) {
-            foreach ($stock as $i => $value) {
-                $resultStock[$i]+=$value;
-
-            }
-        }
+        $resultShipment;
         
-
-     
-
-        $shipmentQty = $this->getPdo()->query("SELECT shipment_item.quantity FROM shipment_item INNER JOIN shipment ON shipment.dateend > '${date}' WHERE shipment_item.itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
-        #calculer chaque element du tableaux
-        $resultShipment = array();
-
         foreach ($shipmentQty as $shipment) {
-            foreach ($shipment as $i => $value) {
-                $resultShipment[$i]+=$value;
-
-            }
+            $resultShipment += $shipment['quantity'];
         }
 
-        $commandQty = $this->getPdo()->query("SELECT command_item_storage.quantity FROM command_item_storage INNER JOIN command ON command.dateend > '${date}' WHERE command_item_storage.itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
+
+        $commandQty = $this->getPdo()->query(
+            "SELECT command_item_storage.quantity, command.dateend FROM command_item_storage
+                INNER JOIN command ON command.id = command_item_storage.commandid
+            WHERE command_item_storage.itemid = '${idProduct}' AND command.dateend <= '${date}' "
+        )->fetchAll(PDO::FETCH_ASSOC);
+
         #calculer chaque element du tableaux
-        $resultComand = array();
-
+        $resultCommand;
+        
         foreach ($commandQty as $command) {
-            foreach ($command as $i => $value) {
-                $resultComand[$i] += $value;
-
-            }
+            $resultCommand += $command['quantity'];
         }
 
-        $flux_entrant = $resultStock['quantity'] - $resultShipment['quantity'];
-        $flux_sortant = $resultStock['quantity'] + $resultShipment['quantity'];
-        var_dump($flux_entrant);
-        var_dump($flux_sortant);
-        var_dump($date);
 
-      return array($flux_entrant, $flux_sortant, $date);
+        $flux = $actualStock['quantity'] - $resultShipment;
+        $flux = $flux + $resultCommand;
+
+      return array($flux);
 
     }
 }

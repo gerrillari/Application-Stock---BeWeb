@@ -1,27 +1,35 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="vendor/ejdamm/chart.js-php/js/Chart.min.js"></script>
-<script src="vendor/ejdamm/chart.js-php/js/driver.js"></script>
-
+<script src="../vendor/ejdamm/chart.js-php/js/Chart.min.js"></script>
+<script src="../vendor/ejdamm/chart.js-php/js/driver.js"></script>
 
 <?
-$flux_entrant = $psd[0];
-$flux_entrant = $psd[1];
-
+/**
+ * Require ChartJs
+ */
 require 'vendor/autoload.php';
 use ChartJs\ChartJS;
 
+#données du graph
 $data = [
-    'labels' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    'labels' => [],
     'datasets' => [[
-        'data' =>[8, 7, 8, 9, 6],
-        'label' => 'flux_entrant'
-
-    ],[
-        'data' =>[], #???
-        'label' => 'flux_sortant'
+        'data' =>[],
+        'label' => 'Stock',
+        'borderColor' => 'rgb(0,191,255)',
+        'backgroundColor' => 'rgb(0,191,255)',
+        'fill' => 'none'
     ]]
 ];
 
+/**
+ * Remplissage des avec le flux correspondant a la date donnée
+ */
+foreach(array_reverse($psd) as $date => $value){
+    array_push($data['labels'], $date);
+    array_push($data['datasets'][0]['data'], $value);
+}
+
+#Création du chart
 $options = ['responsive' => true];
 $Line = new ChartJS('line', $data, $options);
 ?>
@@ -29,14 +37,6 @@ $Line = new ChartJS('line', $data, $options);
 <div class="overwrite">
     <?= $Line ?>
 </div>
-
-
-<script>
-    window.onload = ((function() {
-        loadChartJsPhp();
-    })());
-</script>
-
 
 <div class="container">
     <div class="row">
@@ -71,6 +71,11 @@ $Line = new ChartJS('line', $data, $options);
     </div>
 </div>
 
+<script>
+    window.onload = ((function() {
+        loadChartJsPhp();
+    })());
+</script>
 
 <style>
     /* overwrite canvas size */
