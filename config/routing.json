@@ -5,6 +5,9 @@
     "/products": "ProductController:list",
     "/products/(:)": "ProductController:detail",
     "/storages": "StorageController:list",
-    "/storages/(:)": "StorageController:detail"
+    "/storages/(:)": "StorageController:detail",
+    "/callback": "AuthenticationController:callback",
+    "/login": "AuthenticationController:signin",
+    "/logout": "AuthenticationController:logout"
 }
 

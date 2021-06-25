@@ -15,7 +15,7 @@ use Exception;
  *
  * @author loic
  */
-class FluxController extends Controller
+class FluxController extends SecurizedController
 {
 
     /**
@@ -150,7 +150,8 @@ class FluxController extends Controller
             array_push($datas, (new DAOFlux())->getDeliveryInfo($del["id"]));
         }
 
-
+        include ("./views/head.php");
+        include ("./views/sidebar.php");
         $this->render("FluxList",array("data"=>$datas));
 
     }
@@ -160,6 +161,8 @@ class FluxController extends Controller
 
         $currentId = end(explode("/", $_SERVER["REQUEST_URI"]));
 
+        include ("./views/head.php");
+        include ("./views/sidebar.php");
         $this->render("FluxDetail",array(   "path"=>((new DAOFlux())->getDeliveryPath($currentId)),
                                             "products"=>((new DAOFlux())->getDeliveryProducts($currentId))));
     }
