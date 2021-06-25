@@ -8,38 +8,33 @@
 <script src="vendor/ejdamm/chart.js-php/js/Chart.min.js"></script>
 <script src="vendor/ejdamm/chart.js-php/js/driver.js"></script>
 <?
-$flux_entrant = $psd[0];
-$flux_entrant = $psd[1];
-
+/**
+ * Require ChartJs
+ */
 require 'vendor/autoload.php';
 use ChartJs\ChartJS;
 
-/**
- * décrémente 5 fois la date du jour de 1 mois
- */
-$datePoints = array();
-for ($i=0; $i < 5 ; $i++) { 
-    array_push($datePoints,(new DateTime())->modify(-$i.' month')->format('Y-m-d'));
-    
-}
-
+#données du graph
 $data = [
-    'labels' => [$datePoints[4],$datePoints[3],$datePoints[2],$datePoints[1],$datePoints[0]],
+    'labels' => [],
     'datasets' => [[
-        'data' =>[$min, $flux_entrant,$flux_entrant,$flux_entrant, $flux_entrant],
-        'label' => 'Flux Entrant',
+        'data' =>[],
+        'label' => 'Stock',
         'borderColor' => 'rgb(0,191,255)',
         'backgroundColor' => 'rgb(0,191,255)',
         'fill' => 'none'
-    ],[
-        'data' =>[$min, $flux_sortant, $flux_sortant,flux_sortant,flux_sortant,], 
-        'label' => 'Flux Sortant',
-        'borderColor' => 'rgb(220,20,60)',
-        'backgroundColor' => 'rgb(220,20,60)',
-        'fill' => 'none'
-    ]   ]
+    ]]
 ];
 
+/**
+ * Remplissage des avec le flux correspondant a la date donnée
+ */
+foreach(array_reverse($psd) as $date => $value){
+    array_push($data['labels'], $date);
+    array_push($data['datasets'][0]['data'], $value);
+}
+
+#Création du chart
 $options = ['responsive' => true];
 $Line = new ChartJS('line', $data, $options);
 ?>
@@ -122,10 +117,10 @@ var attribution = new ol.control.Attribution({
                 				<p><?=$product["description"]?></p>
 							</td>
 							<td class="text-center">
-								<?=$product["quantity"]?>
+								<?=$product["quantity"]?> 
 							</td>
 							<td class="text-center">
-								<?=$product["capacity"]?>
+								<?=$product["capacity"]?> m3
 							</td>
 							<td>
 								<div class="progress progress-xs">

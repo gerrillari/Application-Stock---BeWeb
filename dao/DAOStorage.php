@@ -278,6 +278,53 @@ class DAOStorage extends DAO {
                 )->fetchAll(PDO::FETCH_ASSOC);
                 
     }
+
+    public function getStockStorageByDate($StorageID,$date){
+        $stocks = $this->getPdo()->query(
+                "SELECT item_storage.quantity 
+                FROM item_storage 
+                WHERE item_storage.storageid='{$StorageID}'"
+                )->fetchAll(PDO::FETCH_ASSOC);
+        $resultstock;
+        foreach ($stocks as $stock) {
+                $resultstock += $stock["quantity"];
+        }
+
+        $deliverys = $this->getPdo()->query(
+                "SELECT shipment_item.quantity, shipment.dateend
+                FROM shipment_item
+                INNER JOIN shipment ON shipment.id = shipment_item.shipmentid
+                WHERE shipment.destination = '{$StorageID}' AND shipment.dateend <= '{$date}';"
+                )->fetchAll(PDO::FETCH_ASSOC);
+        $resultdelivery;
+        foreach ($deliverys as $delivery) {
+                $resultdelivery += $delivery["quantity"];
+        }
+        
+        $commands = $this->getPdo()->query(
+                "SELECT command_item_storage.quantity, command.dateend
+                FROM command_item_storage
+                INNER JOIN command ON command.id = command_item_storage.commandid 
+                WHERE command_item_storage.storageid= '{$StorageID}' AND command.dateend <= '{$date}'"
+                )->fetchAll(PDO::FETCH_ASSOC);
+
+        $resultcommand;
+        foreach ($commands as $command) {
+                $resultcommand += $command["quantity"];
+        }
+        //var_dump($stock);
+        //echo "<pre>";
+        //var_dump($stock);
+        //var_dump($resultcommand);
+        //var_dump($resultdelivery);
+        //echo "</pre>";
+        //var_dump($resultdelivery);
+        $flux = $resultstock - $resultdelivery + $resultcommand;
+
+        return $flux;
+        
+                
+    }
     
 
 /*
