@@ -98,7 +98,7 @@ class DAOStorage extends DAO {
 
     public function getStatutStorage() {
 
-            /*$capacity= */return $this->getPdo()->query(
+            return $this->getPdo()->query(
                 "SELECT item_storage.storageid, storage.sizelimit as sizestorage, item_storage.quantity as stock, shipment_item.quantity as delivery, command_item_storage.quantity as command, product.size as sizeproduct
                 FROM item_storage
                 INNER JOIN storage ON storage.id = item_storage.storageid
@@ -107,22 +107,12 @@ class DAOStorage extends DAO {
                 INNER JOIN item ON item.id = item_storage.itemid 
                 INNER JOIN product ON product.id = item.productid"
                 )->fetchAll(PDO::FETCH_ASSOC);
-
-                /*$resultCapacity = array();
-
-                foreach ($storages as $storage) {
-                        var_dump($storage);
-                }
-
-                $merde = $capacity["stock"];
-                //var_dump($capacity);
-                //var_dump($merde);
-                return $merde;*/
+                
     }
 
     //WHERE item_storage.storageid= 2
 
-    public function getStockStoragePercentage() {
+    /*public function getStockStoragePercentage() {
        
             $sizeStorage=$this->getPdo()->query(
             "SELECT sizelimit FROM storage"
@@ -250,14 +240,25 @@ class DAOStorage extends DAO {
 
             return $CommandPercent;
     }
+    */
 
-    public function getInfoProductStorage($StorageID,$ProductID) {
+    public function getInfoProductStoragebyID($StorageID,$ProductID) {
         return $this->getPdo()->query(
             "SELECT product.name,product.description,(item_storage.quantity * product.size),item_storage.quantity 
             FROM item_storage
             INNER JOIN item ON item_storage.itemid = item.id
             INNER JOIN product ON item.productid = product.id
             WHERE item_storage.storageid = {$StorageID} AND product.id = {$ProductID}"
+            )->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getInfoProductStorage($StorageID) {
+        return $this->getPdo()->query(
+            "SELECT product.name,product.description,(item_storage.quantity * product.size) as capacity,item_storage.quantity 
+            FROM item_storage
+            INNER JOIN item ON item_storage.itemid = item.id
+            INNER JOIN product ON item.productid = product.id
+            WHERE item_storage.storageid = {$StorageID}"
             )->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -319,6 +320,22 @@ class DAOStorage extends DAO {
             $ProductCommandPercent = ($ProductCommand / $size)*100;
 
             return $ProductCommandPercent;
+    }
+
+    public function getLatLong (){
+
+        $address = "9 impasse des moucheres 34160 sussargues";
+
+        $json=file_get_contents('https://nominatim.openstreetmap.org/search?q=New York City&limit=2&format=json');
+ 
+        $obj = json_decode($json, true);
+     
+        $latitude = $obj[0]['lat'];
+        $longitude = $obj[0]['lon'];
+        
+        var_dump($latitude);
+        var_dump($longitude);
+
     }
 
   

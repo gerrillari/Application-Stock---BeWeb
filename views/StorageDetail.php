@@ -88,17 +88,18 @@ var attribution = new ol.control.Attribution({
 			<div class="table-responsive">
 				<table class="table user-list">
 					<tbody>
+					<? foreach ($products as $index=>$product):?>
 						<tr>
 							<td>
-                				<a>NAME</a>
+                				<a><?=$product["name"]?></a>
 								</br>
-                				<a>Description</a>
+                				<p><?=$product["description"]?></p>
 							</td>
 							<td>
-								Quantité
+								<?=$product["quantity"]?>
 							</td>
 							<td>
-								Taille totale
+								<?=$product["capacity"]?>
 							</td>
 							<td>
 								<div class="progress progress-xs">
@@ -114,7 +115,7 @@ var attribution = new ol.control.Attribution({
 								</div>
 							</td>
 						</tr>
-						
+					<? endforeach ?>	
 					</tbody>
 				</table>
 			</div>

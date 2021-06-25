@@ -177,17 +177,15 @@ class DefaultController extends Controller
         $data = array(
             "storages"=>(new DAOStorage())->getNameStorage(),
             "adresses"=>(new DAOStorage())->getAllAdressStorage(),
-            "status"=>(new DAOStorage())->getStatutStorage(),
-            //"stock"=>(new DAOStorage())->getStockStoragePercentage(),
-            //"delivery"=>(new DAOStorage())->getDeliveryStoragePercentage(),
-            //"command"=>(new DAOStorage())->getCommandStoragePercentage()
+            "status"=>(new DAOStorage())->getStatutStorage()
         );
         $this->render("StoragesList",$data);
     }
 
     public function getStorage(){
         $data = array(
-            "products"=>(new DAOStorage())->getInfoProductStorage(4,139)
+            "products"=>(new DAOStorage())->getInfoProductStorage(4),
+            "coordinates"=>(new DAOStorage())->getLatLong ()
             
         );
         $this->render("StorageDetail",$data);
