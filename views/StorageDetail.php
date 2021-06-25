@@ -104,7 +104,7 @@ var attribution = new ol.control.Attribution({
 							<td>
 								<div class="progress progress-xs">
 									<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
-										<span class="">5%</span>
+										<span class=""><?=$product["capacity"]?></span>
 									</div>
 									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
 										<span class="">9%</span>

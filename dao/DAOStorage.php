@@ -252,15 +252,34 @@ class DAOStorage extends DAO {
             )->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    
     public function getInfoProductStorage($StorageID) {
         return $this->getPdo()->query(
-            "SELECT product.name,product.description,(item_storage.quantity * product.size) as capacity,item_storage.quantity 
+            "SELECT product.name,product.description,
+            (item_storage.quantity * product.size) as capacity,item_storage.quantity 
             FROM item_storage
             INNER JOIN item ON item_storage.itemid = item.id
             INNER JOIN product ON item.productid = product.id
             WHERE item_storage.storageid = {$StorageID}"
             )->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getStatutProductStorage($StorageID) {
+
+            return $this->getPdo()->query(
+                "SELECT product.id as idp, item_storage.storageid, storage.sizelimit as sizestorage, item_storage.quantity as stock, shipment_item.quantity as delivery, command_item_storage.quantity as command, product.size as sizeproduct
+                FROM item_storage
+                INNER JOIN storage ON storage.id = item_storage.storageid
+                INNER JOIN shipment_item ON shipment_item.itemid = item_storage.itemid
+                INNER JOIN command_item_storage ON command_item_storage.itemid = item_storage.itemid
+                INNER JOIN item ON item.id = item_storage.itemid 
+                INNER JOIN product ON product.id = item.productid
+                WHERE item_storage.storageid = {$StorageID}"
+                )->fetchAll(PDO::FETCH_ASSOC);
+                
+    }
+    
+
 
     public function getStockProductStoragePercentage($StorageID,$ProductID) {
         $sizeStorage=$this->getPdo()->query(
@@ -321,24 +340,6 @@ class DAOStorage extends DAO {
 
             return $ProductCommandPercent;
     }
-
-    public function getLatLong (){
-
-        $address = "9 impasse des moucheres 34160 sussargues";
-
-        $json=file_get_contents('https://nominatim.openstreetmap.org/search?q=New York City&limit=2&format=json');
- 
-        $obj = json_decode($json, true);
-     
-        $latitude = $obj[0]['lat'];
-        $longitude = $obj[0]['lon'];
-        
-        var_dump($latitude);
-        var_dump($longitude);
-
-    }
-
-  
 
 }
 

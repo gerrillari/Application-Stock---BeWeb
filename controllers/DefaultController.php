@@ -174,6 +174,9 @@ class DefaultController extends Controller
     }
 
     public function getAllStorages(){
+
+        
+
         $data = array(
             "storages"=>(new DAOStorage())->getNameStorage(),
             "adresses"=>(new DAOStorage())->getAllAdressStorage(),
@@ -183,9 +186,11 @@ class DefaultController extends Controller
     }
 
     public function getStorage(){
+
+       
         $data = array(
             "products"=>(new DAOStorage())->getInfoProductStorage(4),
-            "coordinates"=>(new DAOStorage())->getLatLong ()
+            "bars"=>(new DAOStorage())->getStatutProductStorage(4)
             
         );
         $this->render("StorageDetail",$data);
