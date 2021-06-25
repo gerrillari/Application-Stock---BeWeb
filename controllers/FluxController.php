@@ -140,19 +140,18 @@ class FluxController extends Controller
     //Affiche la vue des shipments
     public function renderList(){
 
-        $arr = array();
-
         $datas = array();
 
         $dels =  (new DAOFlux())->getCurrentDeliveries();
 
         foreach($dels as $del){
+      
+      
             array_push($datas, (new DAOFlux())->getDeliveryInfo($del["id"]));
         }
 
-        $arr["data"] = $datas;
 
-        $this->render("FluxList",$arr);
+        $this->render("FluxList",array("data"=>$datas));
 
     }
 
@@ -161,11 +160,8 @@ class FluxController extends Controller
 
         $currentId = end(explode("/", $_SERVER["REQUEST_URI"]));
 
-        $path = ((new DAOFlux())->getDeliveryPath($currentId));
-        $products = ((new DAOFlux())->getDeliveryProducts($currentId));
-
-
-        $this->render("FluxDetail",array("path"=>$path,"products"=>$products));
+        $this->render("FluxDetail",array(   "path"=>((new DAOFlux())->getDeliveryPath($currentId)),
+                                            "products"=>((new DAOFlux())->getDeliveryProducts($currentId))));
     }
 
 }

@@ -36,6 +36,8 @@
 
 <?php 
 
+  
+
     $maxWeight = $del[0]["weightlimit"];
 
     $totalWeight = 0;
@@ -45,7 +47,7 @@
         $totalWeight += ($del[$i]["weight"] * $del[$i]["quantity"]);
     }
 
-    $weightPercent = round(($maxWeight/$totalWeight)*100);
+    $weightPercent = round(($totalWeight/$maxWeight)*100);
 
 ?>
 
@@ -69,7 +71,7 @@
 
 <img src="assets/svg/arrow-left.svg" width="100px" height="100px">
 <a class="bg-blue-500 shadow-md text-sm text-white font-bold py-3 md:px-8 px-4 hover:bg-blue-400 rounded uppercase" 
-                href="http://<?="{$_SERVER['HTTP_HOST']}/storage/{$del[0]['id']}"?>"">Shipment Info</a>
+                href="http://<?="{$_SERVER['HTTP_HOST']}/flux/{$del[0]['id']}"?>">Shipment Info</a>
 </div>
 
 <div class="w-96 h-72 mx-auto sm:px-6 lg:px-8">
