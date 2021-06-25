@@ -156,4 +156,16 @@ class FluxController extends Controller
 
     }
 
+    //Affiche la vue 
+    public function renderDetail(){
+
+        $currentId = end(explode("/", $_SERVER["REQUEST_URI"]));
+
+        $path = ((new DAOFlux())->getDeliveryPath($currentId));
+        $products = ((new DAOFlux())->getDeliveryProducts($currentId));
+
+
+        $this->render("FluxDetail",array("path"=>$path,"products"=>$products));
+    }
+
 }
