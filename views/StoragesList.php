@@ -8,6 +8,13 @@
 		<div class="main-box clearfix">
 			<div class="table-responsive">
 				<table class="table user-list">
+					<thead>
+                        <tr>
+                        <th class="text-center"><span>Storages information</span></th>
+                        <th class="text-center"><span>Status</span></th>
+                        <th class="text-center"><span>Stock</span></th>
+                        </tr>
+                    </thead>
 					<tbody>
           <? foreach ($storages as $index=>$storage):?>
 						<tr>
@@ -21,19 +28,16 @@
 							</td>
 							<td>
 								<div class="progress progress-xs">
-									<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($status[$index]["delivery"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*1000,2)?>%">
+									<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($status[$index]["delivery"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%">
 										<span class=""><?=round((($status[$index]["delivery"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%</span>
 									</div>
-									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($status[$index]["stock"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*1000,2)?>%">
+									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($status[$index]["stock"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%">
 										<span class=""><?=round((($status[$index]["stock"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%</span>
 									</div>
-									<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($status[$index]["command"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*1000,2)?>%">
+									<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($status[$index]["command"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%">
 										<span class=""><?=round((($status[$index]["command"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%</span>
 									</div>
 								</div>
-
-								
-								
 							</td>
         
 							</td>
@@ -42,15 +46,6 @@
 					</tbody>
 				</table>
 			</div>
-			<ul class="pagination pull-right">
-				<li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
-			</ul>
 		</div>
 	</div>
 </div>

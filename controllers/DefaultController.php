@@ -189,8 +189,8 @@ class DefaultController extends Controller
 
        
         $data = array(
-            "products"=>(new DAOStorage())->getInfoProductStorage(4),
-            "bars"=>(new DAOStorage())->getStatutProductStorage(4)
+            "products"=>(new DAOStorage())->getInfoProductStorage(2),
+            "bars"=>(new DAOStorage())->getStatutProductStorage(2)
             
         );
         $this->render("StorageDetail",$data);

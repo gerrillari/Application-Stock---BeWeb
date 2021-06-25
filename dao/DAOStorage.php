@@ -240,7 +240,7 @@ class DAOStorage extends DAO {
 
             return $CommandPercent;
     }
-    */
+    
 
     public function getInfoProductStoragebyID($StorageID,$ProductID) {
         return $this->getPdo()->query(
@@ -250,7 +250,7 @@ class DAOStorage extends DAO {
             INNER JOIN product ON item.productid = product.id
             WHERE item_storage.storageid = {$StorageID} AND product.id = {$ProductID}"
             )->fetchAll(PDO::FETCH_ASSOC);
-    }
+    }*/
 
     
     public function getInfoProductStorage($StorageID) {
@@ -267,7 +267,7 @@ class DAOStorage extends DAO {
     public function getStatutProductStorage($StorageID) {
 
             return $this->getPdo()->query(
-                "SELECT product.id as idp, item_storage.storageid, storage.sizelimit as sizestorage, item_storage.quantity as stock, shipment_item.quantity as delivery, command_item_storage.quantity as command, product.size as sizeproduct
+                "SELECT storage.name, product.id as idp, item_storage.storageid, storage.sizelimit as sizestorage, item_storage.quantity as stock, shipment_item.quantity as delivery, command_item_storage.quantity as command, product.size as sizeproduct
                 FROM item_storage
                 INNER JOIN storage ON storage.id = item_storage.storageid
                 INNER JOIN shipment_item ON shipment_item.itemid = item_storage.itemid
@@ -280,7 +280,7 @@ class DAOStorage extends DAO {
     }
     
 
-
+/*
     public function getStockProductStoragePercentage($StorageID,$ProductID) {
         $sizeStorage=$this->getPdo()->query(
             "SELECT sizelimit FROM storage WHERE id={$StorageID}"
@@ -340,6 +340,5 @@ class DAOStorage extends DAO {
 
             return $ProductCommandPercent;
     }
-
+*/
 }
-

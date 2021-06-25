@@ -14,26 +14,41 @@ $flux_entrant = $psd[1];
 require 'vendor/autoload.php';
 use ChartJs\ChartJS;
 
-$data = [
-    'labels' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    'datasets' => [[
-        'data' =>[8, 7, 8, 9, 6],
-        'label' => 'flux_entrant'
+/**
+ * décrémente 5 fois la date du jour de 1 mois
+ */
+$datePoints = array();
+for ($i=0; $i < 5 ; $i++) { 
+    array_push($datePoints,(new DateTime())->modify(-$i.' month')->format('Y-m-d'));
+    
+}
 
+$data = [
+    'labels' => [$datePoints[4],$datePoints[3],$datePoints[2],$datePoints[1],$datePoints[0]],
+    'datasets' => [[
+        'data' =>[$min, $flux_entrant,$flux_entrant,$flux_entrant, $flux_entrant],
+        'label' => 'Flux Entrant',
+        'borderColor' => 'rgb(0,191,255)',
+        'backgroundColor' => 'rgb(0,191,255)',
+        'fill' => 'none'
     ],[
-        'data' =>[], 
-        'label' => 'flux_sortant'
-    ]]
+        'data' =>[$min, $flux_sortant, $flux_sortant,flux_sortant,flux_sortant,], 
+        'label' => 'Flux Sortant',
+        'borderColor' => 'rgb(220,20,60)',
+        'backgroundColor' => 'rgb(220,20,60)',
+        'fill' => 'none'
+    ]   ]
 ];
 
 $options = ['responsive' => true];
 $Line = new ChartJS('line', $data, $options);
 ?>
-<!--AFFICHAGE GRAPHE + MAP  -->
+<!--AFFICHAGE NAVBAR + GRAPHE + MAP  -->
 <div class="container">
  <div class="row">
     <div class="col-lg-3">
-      NAVBAR
+      <!--SI PAS BESOIN DE ESPACE EXTRA POUR LA NAVBAR, ENLEVER CETTE DIV ET MODIF LES AUTRES 2 "col-lg-5" et "col-lg-4" 
+	  avec un autre nb si nécessaire pour bien afficher la carte et le graphe dans la view-->
     </div>
     <div id="map" style="width: 400px; height: 200px;" class="col-lg-5">
     </div>
@@ -78,7 +93,7 @@ var attribution = new ol.control.Attribution({
  });
 </script>
 
-<!--TABLEAU -->
+<!--TABLEAU COMPOSER -->
 <div class="container">
 <div class="row">
 	<div class="col-lg-3">
@@ -87,30 +102,41 @@ var attribution = new ol.control.Attribution({
 		<div class="main-box clearfix">
 			<div class="table-responsive">
 				<table class="table user-list">
+				<? foreach ($products as $index=>$product):?>
+				<p></p>
+				<h3><?=$bars[$index]["name"]?> <i style="color: grey">storage</i></h3>
+					<thead>
+                        <tr>
+                        <th class="text-center"><span>Products information</span></th>
+                        <th class="text-center"><span>Quantity</span></th>
+                        <th class="text-center"><span>Capacity</span></th>
+						<th class="text-center"><span>Stock</span></th>
+                        </tr>
+                    </thead>
 					<tbody>
-					<? foreach ($products as $index=>$product):?>
+					
 						<tr>
 							<td>
                 				<a><?=$product["name"]?></a>
 								</br>
                 				<p><?=$product["description"]?></p>
 							</td>
-							<td>
+							<td class="text-center">
 								<?=$product["quantity"]?>
 							</td>
-							<td>
+							<td class="text-center">
 								<?=$product["capacity"]?>
 							</td>
 							<td>
 								<div class="progress progress-xs">
-									<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
-										<span class=""><?=$product["capacity"]?></span>
+									<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($bars[$index]["delivery"]*$bars[$index]["sizeproduct"])/$bars[$index]["sizestorage"])*100,2)?>%">
+										<span class=""><?=round((($bars[$index]["delivery"]*$bars[$index]["sizeproduct"])/$bars[$index]["sizestorage"])*100,2)?>%</span>
 									</div>
-									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-										<span class="">9%</span>
+									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($bars[$index]["stock"]*$bars[$index]["sizeproduct"])/$bars[$index]["sizestorage"])*100,2)?>%">
+										<span class=""><?=round((($bars[$index]["stock"]*$bars[$index]["sizeproduct"])/$bars[$index]["sizestorage"])*100,2)?>%</span>
 									</div>
-									<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
-										<span class="">1%</span>
+									<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($bars[$index]["command"]*$bars[$index]["sizeproduct"])/$bars[$index]["sizestorage"])*100,2)?>%">
+										<span class=""><?=round((($bars[$index]["command"]*$bars[$index]["sizeproduct"])/$bars[$index]["sizestorage"])*100,2)?>%</span>
 									</div>
 								</div>
 							</td>
@@ -119,15 +145,6 @@ var attribution = new ol.control.Attribution({
 					</tbody>
 				</table>
 			</div>
-			<ul class="pagination pull-right">
-				<li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
-			</ul>
 		</div>
 	</div>
 </div>
