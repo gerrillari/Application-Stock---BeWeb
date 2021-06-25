@@ -19,7 +19,7 @@
           <? foreach ($storages as $index=>$storage):?>
 						<tr>
 							<td>
-                				<a href="#"><?=$storage["name"]?></a>
+                				<a href="http://localhost:4488/storage/<?=$storage["id"]?>"><?=$storage["name"]?></a>
 								</br>
                 				<p><?=$adresses[$index]["number"]." ".$adresses[$index]["street"]." - ".$adresses[$index]["city"]." ".$adresses[$index]["zipcode"]?></p>
 							</td>

@@ -187,6 +187,8 @@ class DefaultController extends Controller
     }
 
     public function getStorage(){
+
+        $currentid=end(explode("/",$_SERVER["REQUEST_URI"]));
         /**
          * décrémente 5 fois la date du jour de 1 mois
          */
@@ -207,8 +209,8 @@ class DefaultController extends Controller
         $data = array(
             #$psd = tableau de date en clé
             "psd" => $datePoints,
-            "products"=>(new DAOStorage())->getInfoProductStorage(2),
-            "bars"=>(new DAOStorage())->getStatutProductStorage(2)
+            "products"=>(new DAOStorage())->getInfoProductStorage($currentid),
+            "bars"=>(new DAOStorage())->getStatutProductStorage($currentid)
             
         );
         $this->render("StorageDetail",$data);
