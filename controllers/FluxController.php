@@ -5,11 +5,8 @@ namespace BWB\Framework\mvc\controllers;
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\models\DefaultModel;
 use BWB\Framework\mvc\models\TestModel;
-
-use BWB\Framework\mvc\dao\DAOStorage;
-use \DateTime;
+use BWB\Framework\mvc\dao\DAOFlux;
 use Exception;
-
 
 /**
  * Ceci est un exemple de contrôleur 
@@ -18,7 +15,7 @@ use Exception;
  *
  * @author loic
  */
-class DefaultController extends Controller
+class FluxController extends Controller
 {
 
     /**
@@ -32,43 +29,7 @@ class DefaultController extends Controller
         parent::__construct();
     }
 
-    /**
-     * Retourne la vue default.php qui se trouve dans le dossier views.
-     * 
-     * @link / methode invoquée lors d'une requête à la racine de l'application
-     */
-    public function getDefault()
-    {
-        $this->response->render("default");
-    }
 
-    /**
-     * Simule un utilisateur qui se loggue.
-     * On utilise l'objet {@see DefaultModel} qui retourne des valeurs par defaut
-     * pour la generation du token. 
-     * 
-     * @link /login URI definie dans le fichier config/routing.json     * 
-     * 
-     */
-    public function login()
-    {
-        $this->security->generateToken(new DefaultModel());
-        header("Location: http://" . $_SERVER['SERVER_NAME'] . "/token");
-    }
-
-    /**
-     * Simule un utilisateur qui se deconnecte.
-     * La metode effectue une redirection 
-     * 
-     * 
-     * @link /logout URI definie dans le fichier config/routing.json  
-     * 
-     */
-    public function logout()
-    {
-        $this->security->deactivate();
-        header("Location: http://" . $_SERVER['SERVER_NAME'] . "/token");
-    }
 
     /**
      * Cette methode simule la verification du client
@@ -175,47 +136,32 @@ class DefaultController extends Controller
         ));
     }
 
-    public function getAllStorages(){
 
-        
+    //Affiche la vue des shipments
+    public function renderList(){
 
-        $data = array(
-            "storages"=>(new DAOStorage())->getNameStorage(),
-            "adresses"=>(new DAOStorage())->getAllAdressStorage(),
-            "status"=>(new DAOStorage())->getStatutStorage()
-        );
-        $this->render("StoragesList",$data);
+        $datas = array();
+
+        $dels =  (new DAOFlux())->getCurrentDeliveries();
+
+        foreach($dels as $del){
+      
+      
+            array_push($datas, (new DAOFlux())->getDeliveryInfo($del["id"]));
+        }
+
+
+        $this->render("FluxList",array("data"=>$datas));
+
     }
 
-    public function getStorage(){
+    //Affiche la vue 
+    public function renderDetail(){
 
-        $currentid=end(explode("/",$_SERVER["REQUEST_URI"]));
-        /**
-         * décrémente 5 fois la date du jour de 1 mois
-         */
-        $dates = array();
-        for ($i=0; $i < 10 ; $i+=2) { 
-            array_push($dates,(new DateTime())->modify(-$i.' month')->format('Y-m-d'));
-        }
+        $currentId = end(explode("/", $_SERVER["REQUEST_URI"]));
 
-        /**
-         * Pour chacune des dates je les mets en clé du tableau DatePointset, met son stock en valeur
-         * exemple de résultat [YYYY-MM-DD] => '600' (stock par rapport la date en clé);
-         */
-        $datePoints = array();
-        foreach ($dates as $date){
-            $datePoints[$date] = (new DAOStorage())->getStockStorageByDate($currentid,$date);
-        }
-       
-        $data = array(
-            #$psd = tableau de date en clé
-            "psd" => $datePoints,
-            "products"=>(new DAOStorage())->getInfoProductStorage($currentid),
-            "bars"=>(new DAOStorage())->getStatutProductStorage($currentid)
-            // "products"=>(new DAOStorage())->getInfoProductStorage(2),
-            // "bars"=>(new DAOStorage())->getStatutProductStorage(2)
-        );
-        $this->render("StorageDetail",$data);
+        $this->render("FluxDetail",array(   "path"=>((new DAOFlux())->getDeliveryPath($currentId)),
+                                            "products"=>((new DAOFlux())->getDeliveryProducts($currentId))));
     }
 
 }

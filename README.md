@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+# APPLICATION-STOCK
+
+=======
 # FRAMEWORK PHP MVC BEWEB 
 ## Description
 Ce projet est une etude de php a travers la mise en place d'un "framework" basé sur le modèle mvc   
@@ -126,3 +130,4 @@ Par exemple si les contrôleurs concrets implémentent les mêmes algorithmes, i
 
 ### The web
 Les fichiers css, les images, les scripts js peuvent être mis dans un dossier assets a la racine du projet ( toutes vues sont retournées depuis le fichier index.php ). N'hesitez pas a mettre un dossier download/.
+>>>>>>> 679db7f84bca0b68c6828ba7a7b95486484502a6
