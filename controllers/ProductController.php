@@ -7,6 +7,7 @@ use \Datetime;
 use BWB\Framework\mvc\dao\DAOProduct;
 use Exception;
 
+
 class ProductController extends Controller {
 
     public function __construct(){
@@ -20,9 +21,10 @@ class ProductController extends Controller {
         #récupère le derniere element demon uri 
         #exemple : '/product/1' => je récup 1
         $currentid = end(explode("/", $_SERVER["REQUEST_URI"]));
-        
+    
         $data = array(
             "products" => (new DAOProduct())->getProducts(),
+
         );
         $this->render("ViewProductList", $data);
     }
@@ -30,10 +32,10 @@ class ProductController extends Controller {
     /**
      * Renvoie mes details des produits avec les data correspondantes
      */
-    public function renderDetails($currendid){
+    public function renderDetails($currentid){
         #calcule de l'id courant
         $currentid = end(explode("/", $_SERVER["REQUEST_URI"]));
-
+        
         /**
          * décrémente 5 fois la date du jour de 1 mois
          */
@@ -58,5 +60,12 @@ class ProductController extends Controller {
             "storages" => (new DAOProduct())->getStorageInfo($currendid)
         );
         $this->render("ViewProductDetails", $data);
+    }
+
+    public function updateDetails(){
+        $currentid = end(explode("/", $_SERVER["REQUEST_URI"]));
+
+        (new DAOProduct())->setProductTreshold($currentid, $_POST['threshold']);
+        $this->renderDetails($currentid);
     }
 }
