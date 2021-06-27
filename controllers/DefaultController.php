@@ -184,6 +184,9 @@ class DefaultController extends Controller
             "adresses"=>(new DAOStorage())->getAllAdressStorage(),
             "status"=>(new DAOStorage())->getStatutStorage()
         );
+        
+        include ("./views/head.php");
+        include ("./views/sidebar.php");
         $this->render("StoragesList",$data);
     }
 
@@ -215,6 +218,9 @@ class DefaultController extends Controller
             // "products"=>(new DAOStorage())->getInfoProductStorage(2),
             // "bars"=>(new DAOStorage())->getStatutProductStorage(2)
         );
+
+        include ("./views/head.php");
+        include ("./views/sidebar.php");
         $this->render("StorageDetail",$data);
     }
 

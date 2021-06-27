@@ -31,7 +31,7 @@ class SecurityMiddleware
      * mecanisme de hachage pour plus de securité
      *   
      */
-    private $passport = "Bonjour a tous";
+    private $passport = "j'apprecie les fruits au sirop";
 
     /**
      *

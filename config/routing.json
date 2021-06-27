@@ -1,5 +1,5 @@
 {
-    "/": "DefaultController:getDefault",
+    "/": "DashboardController:getDashboard",
     "/products" : "ProductController:renderList",
     "/products/" : "ProductController:renderList",
     "/products/(:)" :{
@@ -13,9 +13,9 @@
      },
     "/flux": "FluxController:renderList",
     "/flux/(:)": "FluxController:renderDetail",
-    "/login": "DefaultController:login",
-    "/logout": "DefaultController:logout",
-    "/token": "DefaultController:token",
+    "/login": "AuthenticationController:signin",
+    "/logout": "AuthenticationController:logout",
+    "/callback": "AuthenticationController:callback",
     "/json": "DefaultController:getJSON",
     "/api/default":{
         "GET":"DefaultController:getDatasFromGET",

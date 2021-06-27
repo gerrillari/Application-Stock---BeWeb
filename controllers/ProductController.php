@@ -22,6 +22,9 @@ class ProductController extends Controller {
             "products" => (new DAOProduct())->getProducts(),
 
         );
+
+        include ("./views/head.php");
+        include ("./views/sidebar.php");
         $this->render("ViewProductList", $data);
     }
     
@@ -58,6 +61,8 @@ class ProductController extends Controller {
             "psd" => $datePoints
         );
 
+        include ("./views/head.php");
+        include ("./views/sidebar.php");
         $this->render("ViewProductDetails", $data);
     }
 
@@ -65,6 +70,9 @@ class ProductController extends Controller {
         $currentid = end(explode("/", $_SERVER["REQUEST_URI"]));
 
         (new DAOProduct())->setProductTreshold($currentid, $_POST['threshold']);
+
+        include ("./views/head.php");
+        include ("./views/sidebar.php");
         $this->renderDetails($currentid);
     }
 }

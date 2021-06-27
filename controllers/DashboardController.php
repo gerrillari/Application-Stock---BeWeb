@@ -5,7 +5,7 @@ namespace BWB\Framework\mvc\controllers;
 use BWB\Framework\mvc\Controller;
 use BWB\Framework\mvc\models\DefaultModel;
 use BWB\Framework\mvc\models\TestModel;
-use BWB\Framework\mvc\dao\DAOFlux;
+
 use Exception;
 
 /**
@@ -15,7 +15,7 @@ use Exception;
  *
  * @author loic
  */
-class FluxController extends SecurizedController
+class DashboardController extends SecurizedController
 {
 
     /**
@@ -138,33 +138,15 @@ class FluxController extends SecurizedController
 
 
     //Affiche la vue des shipments
-    public function renderList(){
+    public function getDashboard(){
 
-        $datas = array();
-
-        $dels =  (new DAOFlux())->getCurrentDeliveries();
-
-        foreach($dels as $del){
-      
-      
-            array_push($datas, (new DAOFlux())->getDeliveryInfo($del["id"]));
-        }
+ 
 
         include ("./views/head.php");
         include ("./views/sidebar.php");
-        $this->render("FluxList",array("data"=>$datas));
-
+        
     }
 
-    //Affiche la vue 
-    public function renderDetail(){
-
-        $currentId = end(explode("/", $_SERVER["REQUEST_URI"]));
-
-        include ("./views/head.php");
-        include ("./views/sidebar.php");
-        $this->render("FluxDetail",array(   "path"=>((new DAOFlux())->getDeliveryPath($currentId)),
-                                            "products"=>((new DAOFlux())->getDeliveryProducts($currentId))));
-    }
+    
 
 }

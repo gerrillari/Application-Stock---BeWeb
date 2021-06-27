@@ -58,7 +58,8 @@
             class="text-blueGray-300 text-xs uppercase py-3 font-bold block"
             href="http://<?=$_SERVER["HTTP_HOST"]?>/logout"
             ><i class="fas fa-tools text-blueGray-300 mr-2 text-sm"></i>
-            Logout</a
+            Logout
+        </a
           >
         </li>
       </ul>
