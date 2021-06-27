@@ -51,7 +51,6 @@ class ProductController extends Controller {
         foreach ($dates as $date){
             $datePoints[$date] = (new DAOProduct())->getProductStockByDate($currendid, $date);
         }
-
         #render ma vue
         $data = array(
             #$psd = tableau de date en clé
