@@ -1,7 +1,7 @@
 {
     "driver" : "mysql",
     "host" : "172.17.0.1",
-    "port" : "49153",
+    "port" : "9153",
     "dbname" : "STOCK",
     "username" : "root",
     "password" : "root"

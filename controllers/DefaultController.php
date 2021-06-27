@@ -203,7 +203,7 @@ class DefaultController extends Controller
          */
         $datePoints = array();
         foreach ($dates as $date){
-            $datePoints[$date] = (new DAOStorage())->getStockStorageByDate(740,$date);
+            $datePoints[$date] = (new DAOStorage())->getStockStorageByDate($currentid,$date);
         }
        
         $data = array(
@@ -211,7 +211,8 @@ class DefaultController extends Controller
             "psd" => $datePoints,
             "products"=>(new DAOStorage())->getInfoProductStorage($currentid),
             "bars"=>(new DAOStorage())->getStatutProductStorage($currentid)
-            
+            // "products"=>(new DAOStorage())->getInfoProductStorage(2),
+            // "bars"=>(new DAOStorage())->getStatutProductStorage(2)
         );
         $this->render("StorageDetail",$data);
     }

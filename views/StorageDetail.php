@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css">
 
 <!--GRAPHE SCRIPT DEBUT-->
-<script src="vendor/ejdamm/chart.js-php/js/Chart.min.js"></script>
-<script src="vendor/ejdamm/chart.js-php/js/driver.js"></script>
+<script src="../vendor/ejdamm/chart.js-php/js/Chart.min.js"></script>
+<script src="../vendor/ejdamm/chart.js-php/js/driver.js"></script>
 <?
 /**
  * Require ChartJs
@@ -98,8 +98,6 @@ var attribution = new ol.control.Attribution({
 			<div class="table-responsive">
 				<table class="table user-list">
 				<? foreach ($products as $index=>$product):?>
-				<p></p>
-				<h3><?=$bars[$index]["name"]?> <i style="color: grey">storage</i></h3>
 					<thead>
                         <tr>
                         <th class="text-center"><span>Products information</span></th>

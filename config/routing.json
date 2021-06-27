@@ -1,9 +1,10 @@
 {
     "/": "DefaultController:getDefault",
     "/storages": "DefaultController:getAllStorages",
+    "/storage": "DefaultController:getStorage",
     "/storage/(:)": {
         "GET": "DefaultController:getStorage"
-    },
+     },
     "/test": "DefaultController:test",
     "/login": "DefaultController:login",
     "/logout": "DefaultController:logout",
