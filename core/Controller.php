@@ -132,6 +132,7 @@ abstract class Controller {
         }        
         if(is_array($datas)){
             foreach ($datas as $key => $value) {
+     
                 $$key = $value;
             }
         }
