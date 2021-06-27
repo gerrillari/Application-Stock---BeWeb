@@ -17,11 +17,7 @@ class ProductController extends Controller {
     /**
      * Renvoie ma list de produit avec les data correspondantes
      */
-    public function renderList(){
-        #récupère le derniere element demon uri 
-        #exemple : '/product/1' => je récup 1
-        $currentid = end(explode("/", $_SERVER["REQUEST_URI"]));
-    
+    public function renderList(){    
         $data = array(
             "products" => (new DAOProduct())->getProducts(),
 
@@ -32,10 +28,12 @@ class ProductController extends Controller {
     /**
      * Renvoie mes details des produits avec les data correspondantes
      */
-    public function renderDetails($currentid){
-        #calcule de l'id courant
-        $currentid = end(explode("/", $_SERVER["REQUEST_URI"]));
-        
+    public function renderDetails(){
+
+        #récupère le derniere element de mon uri 
+        #exemple : '/products/1' => je récup 1
+        $currendid = end(explode("/", $_SERVER["REQUEST_URI"]));
+
         /**
          * décrémente 5 fois la date du jour de 1 mois
          */
@@ -49,16 +47,18 @@ class ProductController extends Controller {
          * exemple de résultat [YYYY-MM-DD] => '600' (stock par rapport la date en clé);
          */
         $datePoints = array();
+        
         foreach ($dates as $date){
-            $datePoints[$date] = (new DAOProduct())->getProductStockByDate($currentid, $date);
+            $datePoints[$date] = (new DAOProduct())->getProductStockByDate($currendid, $date);
         }
 
         #render ma vue
         $data = array(
             #$psd = tableau de date en clé
-            "psd" => $datePoints,
-            "storages" => (new DAOProduct())->getStorageInfo($currendid)
+            "storages" => (new DAOProduct())->getStorageInfo($currendid),
+            "psd" => $datePoints
         );
+
         $this->render("ViewProductDetails", $data);
     }
 

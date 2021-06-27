@@ -3,7 +3,8 @@
     "/products" : "ProductController:renderList",
     "/products/" : "ProductController:renderList",
     "/products/(:)" :{
-        "GET":"ProductController:renderDetails"
+        "GET":"ProductController:renderDetails",
+        "POST":"ProductController:updateDetails"
     },
     "/test": "DefaultController:cc",
     "/login": "DefaultController:login",

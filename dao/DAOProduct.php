@@ -48,7 +48,6 @@ class DAOProduct extends DAO {
      * Update la colonne treshold en base de donnée, elle correspondant au seuil de notification.
      */
     public function setProductTreshold($idProduct, $value){
-
         return $this->getPdo()->query("UPDATE item SET threshold = '${value}' WHERE id = '${idProduct}' ");
     }
 
@@ -58,7 +57,7 @@ class DAOProduct extends DAO {
     public function getProducts(){
 
         #infos classic
-        return $this->getPdo()->query("SELECT item.id, product.description, product.price, product.weight, product.name, item.quantity FROM item INNER JOIN product on item.productid = product.id ")->fetchAll(PDO::FETCH_ASSOC);
+        return $this->getPdo()->query("SELECT item.id, product.description, product.price, product.weight, product.size, product.name, item.quantity FROM item INNER JOIN product on item.productid = product.id ")->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
@@ -73,19 +72,6 @@ class DAOProduct extends DAO {
             WHERE item_storage.itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
     }     
 
-
-    /**
-     * Retourn la quantité d'un produit (args) des entrepots
-     */
-    public function getProductsFromStorage($idProduct){
-
-        return $this->getPdo()->query(
-            "SELECT item_storage.quantity, adress.city, adress.zipcode, adress.street, adress.number, storage.name FROM item_storage 
-                INNER JOIN storage ON item_storage.storageid = storage.id 
-                INNER JOIN adress ON storage.location = adress.id 
-            WHERE itemid = '${idProduct}' ")->fetchAll(PDO::FETCH_ASSOC);
-    }
-    
 
     /**
      * Trouve le stock livré d'un produit entre 2 dates passées en args
@@ -103,33 +89,39 @@ class DAOProduct extends DAO {
                 INNER JOIN shipment ON shipment.id = shipment_item.shipmentid
             WHERE shipment_item.itemid = '${idProduct}' AND shipment.dateend <= '${date}'"
             )->fetchAll(PDO::FETCH_ASSOC);
-
-        #calculer chaque element du tableaux
-        $resultShipment;
-        
-        foreach ($shipmentQty as $shipment) {
-            $resultShipment += $shipment['quantity'];
-        }
-
-
+            
+            #calculer chaque element du tableaux
+            $resultShipment;
+            
+            foreach ($shipmentQty as $shipment) {
+                $resultShipment += $shipment['quantity'];
+            }
+            
         $commandQty = $this->getPdo()->query(
             "SELECT command_item_storage.quantity, command.dateend FROM command_item_storage
                 INNER JOIN command ON command.id = command_item_storage.commandid
             WHERE command_item_storage.itemid = '${idProduct}' AND command.dateend <= '${date}' "
         )->fetchAll(PDO::FETCH_ASSOC);
 
+        
+        
         #calculer chaque element du tableaux
         $resultCommand;
         
         foreach ($commandQty as $command) {
             $resultCommand += $command['quantity'];
         }
+        
+        
+        $flux = $actualStock['quantity'] - $resultShipment + $resultCommand;
 
+        print($flux);
 
-        $flux = $actualStock['quantity'] - $resultShipment;
-        $flux = $flux + $resultCommand;
-
-      return array($flux);
+      return $flux;
 
     }
+
+
+    
 }
+

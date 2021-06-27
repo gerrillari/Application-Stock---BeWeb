@@ -1,8 +1,11 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 <script src="../vendor/ejdamm/chart.js-php/js/Chart.min.js"></script>
 <script src="../vendor/ejdamm/chart.js-php/js/driver.js"></script>
 
 <?
+use BWB\Framework\mvc\dao\DAOProduct;
 /**
  * Require ChartJs
  */
@@ -21,6 +24,12 @@ $data = [
     ]]
 ];
 
+#Création du chart
+$options = ['responsive' => true];
+$Line = new ChartJS('line', $data, $options);
+
+#stock actuel du produit courrant
+
 /**
  * Remplissage des avec le flux correspondant a la date donnée
  */
@@ -28,19 +37,40 @@ foreach(array_reverse($psd) as $date => $value){
     array_push($data['labels'], $date);
     array_push($data['datasets'][0]['data'], $value);
 }
-
-#Création du chart
-$options = ['responsive' => true];
-$Line = new ChartJS('line', $data, $options);
+$stock_current_product = $data['datasets'][0]['data'][4];
 ?>
 
-<div class="overwrite">
-    <?= $Line ?>
-</div>
+
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-3">
+            <!-- nav -->
+        </div>
+
+        <div class="col-lg-6">
+            <?= $Line ?>
+        </div>
+        <div class="col-lg-3 form" id="form">
+            <h3>Set Products Threshold</h3>
+            <form method="post">
+                <label>Actual stock</label><br>
+                <input type="text" value="<?= $stock_current_product ?>" disabled="disabled"><br><br>
+
+                <label>Set threshold</label><br>
+                <input type="text" name="threshold" ><br><br>
+
+                <input class="btn btn-primary" type="submit" value="Update">
+            </form> 
+        </div>
+    </div>
+</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <!-- nav -->
+            </div>
+            <div class="col-lg-9">
             <div class="main-box clearfix">
                 <div class="table-responsive">
                     <table class="table user-list">
@@ -69,7 +99,10 @@ $Line = new ChartJS('line', $data, $options);
             </div>
         </div>
     </div>
-</div>
+<!-- </div> -->
+
+
+
 
 <script>
     window.onload = ((function() {
@@ -79,11 +112,16 @@ $Line = new ChartJS('line', $data, $options);
 
 <style>
     /* overwrite canvas size */
-    .overwrite{
-        margin: auto;
-        width: 700px;
+    .form {
+        background-color: #E4E3DF;
+        border-radius: 6px;
+        text-align: center;
+        /* align-items: center; */
     }
-
+    h3 {
+        padding-top: 10px
+    }
+    
     body{margin-top:20px;}
 
     /* USER LIST TABLE */
