@@ -42,7 +42,7 @@ class DAOStorage extends DAO {
     }
 
     /**
-     * Retourne l'adresse (ville, code postal, numéro et rue) de l'entrepôt
+     * Retourne l'adresse (ville, code postal, numéro et rue) d'un entrepôt en particulier
      */
     public function getAdressStorage($StorageID) {
         return $this->getPdo()->query(
@@ -54,6 +54,9 @@ class DAOStorage extends DAO {
             )->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retourne l'adresse (ville, code postal, numéro et rue) de tous les entrepôts
+     */
      public function getAllAdressStorage() {
         return $this->getPdo()->query(
             "SELECT adress.city, adress.zipcode, adress.number, adress.street 
@@ -61,6 +64,10 @@ class DAOStorage extends DAO {
             )->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retourne la taille de l'entrepôt, la quantité de stock/livraison/commande et sa taille totale par entrepôt
+     * et calcule le stock total tenant compte le stock actuel, le flux entrant et sortant
+     */
     public function getStatutStoragebyID($StorageID) {
 
             $sizeStorage=$this->getPdo()->query(
@@ -102,6 +109,9 @@ class DAOStorage extends DAO {
             return $Statut;
     }
 
+    /**
+     *Retourne la taille de l'entrepôt, la quantité de stock/livraison/commande et sa taille totale
+     */
     public function getStatutStorage() {
 
             return $this->getPdo()->query(
@@ -115,7 +125,10 @@ class DAOStorage extends DAO {
                 )->fetchAll(PDO::FETCH_ASSOC);
                 
     }
-    
+
+    /**
+     *Retourne les informations des produits d'un entrepôt comme le nom, sa description, sa quantité et taille
+     */
     public function getInfoProductStorage($StorageID) {
         return $this->getPdo()->query(
             "SELECT product.name,product.description,
@@ -127,6 +140,9 @@ class DAOStorage extends DAO {
             )->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     *Retourne la taille de l'entrepôt, la quantité de stock/livraison/commande et sa taille totale des produits d'un entrepôt
+     */
     public function getStatutProductStorage($StorageID) {
 
             return $this->getPdo()->query(
@@ -142,6 +158,11 @@ class DAOStorage extends DAO {
                 
     }
 
+    /**
+     * Retourne la quantité de stock/livraison/commande et la taille totale des produits par entrepôt
+     * et une date en particulier 
+     * et calcule le flux tenant compte le stock actuel, le flux entrant et sortant
+     */
     public function getStockStorageByDate($StorageID,$date){
         $stocks = $this->getPdo()->query(
                 "SELECT item_storage.quantity 
@@ -174,16 +195,13 @@ class DAOStorage extends DAO {
         foreach ($commands as $command) {
                 $resultcommand += $command["quantity"];
         }
-        //var_dump($stock);
-        //echo "<pre>";
-        //var_dump($stock);
-        //var_dump($resultcommand);
-        //var_dump($resultdelivery);
-        //echo "</pre>";
-        //var_dump($resultdelivery);
+
         $flux = $resultstock - $resultdelivery + $resultcommand;
 
         return $flux;      
     }
+
     
 }
+
+

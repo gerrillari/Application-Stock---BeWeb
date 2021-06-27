@@ -68,6 +68,13 @@ var attribution = new ol.control.Attribution({
      collapsible: false
  });
 
+
+
+//Génération coordonnées aléatoires
+var randlong = Math.random() * (4.35247 - 4.25478)  + 4.25478;
+var randlat = Math.random() * (50.84673 - 50.55486)  + 50.55486;
+
+//Génération map
  var map = new ol.Map({
      controls: ol.control.defaults({attribution: false}).extend([attribution]),
      layers: [
@@ -81,12 +88,14 @@ var attribution = new ol.control.Attribution({
      ],
      target: 'map',
      view: new ol.View({
-         center: ol.proj.fromLonLat([4.35247, 50.84673]),
+         center: ol.proj.fromLonLat([randlong, randlat]),
          maxZoom: 18,
          zoom: 12
      })
  });
 </script>
+
+
 
 <!--TABLEAU COMPOSER -->
 <div class="container">
@@ -107,10 +116,9 @@ var attribution = new ol.control.Attribution({
                         </tr>
                     </thead>
 					<tbody>
-					
 						<tr>
 							<td>
-                				<a><?=$product["name"]?></a>
+                				<a style="text-decoration:none; color:#0880bd"><?=$product["name"]?></a>
 								</br>
                 				<p><?=$product["description"]?></p>
 							</td>
