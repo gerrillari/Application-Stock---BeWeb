@@ -29,8 +29,8 @@ class DAODefault extends DAO{
         
     }
 
-    public function getAll() {
-        
+    public function getAll(): array{
+        return $this->pdo->query("SELECT * FROM storage")->fetchAll();
     }
 
     public function getAllBy($filter) {
