@@ -403,6 +403,54 @@
             "install-path": "../myclabs/deep-copy"
         },
         {
+            "name": "nnnick/chartjs",
+            "version": "v3.3.2",
+            "version_normalized": "3.3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chartjs/Chart.js.git",
+                "reference": "b9389f8e065e74ccceb59e0ef29164841e78351f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/b9389f8e065e74ccceb59e0ef29164841e78351f",
+                "reference": "b9389f8e065e74ccceb59e0ef29164841e78351f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "2021-05-30T19:03:08+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "release/2.0": "v2.0-dev"
+                }
+            },
+            "installation-source": "source",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "NICK DOWNIE",
+                    "email": "hello@nickdownie.com"
+                }
+            ],
+            "description": "Simple HTML5 charts using the canvas element.",
+            "homepage": "https://www.chartjs.org/",
+            "keywords": [
+                "JS",
+                "chart"
+            ],
+            "support": {
+                "issues": "https://github.com/chartjs/Chart.js/issues",
+                "source": "https://github.com/chartjs/Chart.js/tree/v3.3.2"
+            },
+            "install-path": "../nnnick/chartjs"
+        },
+        {
             "name": "phar-io/manifest",
             "version": "1.0.1",
             "version_normalized": "1.0.1.0",

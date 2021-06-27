@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '7e2838e2be4a3f2e27ca7442fdbca567dcf0a820',
+        'reference' => 'b94245d0fd4eee0b414ad00f29473c4b8ea9a429',
         'name' => 'beweb/php-mvc.bwb',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '7e2838e2be4a3f2e27ca7442fdbca567dcf0a820',
+            'reference' => 'b94245d0fd4eee0b414ad00f29473c4b8ea9a429',
             'dev_requirement' => false,
         ),
         'doctrine/instantiator' => array(
@@ -81,6 +81,15 @@
             'aliases' => array(),
             'reference' => '3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e',
             'dev_requirement' => true,
+        ),
+        'nnnick/chartjs' => array(
+            'pretty_version' => 'v3.3.2',
+            'version' => '3.3.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nnnick/chartjs',
+            'aliases' => array(),
+            'reference' => 'b9389f8e065e74ccceb59e0ef29164841e78351f',
+            'dev_requirement' => false,
         ),
         'phar-io/manifest' => array(
             'pretty_version' => '1.0.1',

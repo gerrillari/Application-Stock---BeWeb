@@ -25,7 +25,7 @@
 									<tr>
 										<td>
 											<img src="http://image.noelshack.com/fichiers/2021/25/6/1624720676-avatar1.png" alt="">
-											<a class="link" href="http://localhost:5656/products/<?=$product['id'] ?>">
+											<a class="link" href="http://<?="{$_SERVER['HTTP_HOST']}/products/{$product['id']}"?>">
 												<p  class="user-link"><?= $product['name'] ?></p>
 												<span class="user-subhead"><?= $product['description'] ?></span>
 											</a>	

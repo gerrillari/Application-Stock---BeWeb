@@ -11,6 +11,8 @@
     "/storage/(:)": {
         "GET": "DefaultController:getStorage"
      },
+    "/flux": "FluxController:renderList",
+    "/flux/(:)": "FluxController:renderDetail",
     "/login": "DefaultController:login",
     "/logout": "DefaultController:logout",
     "/token": "DefaultController:token",
