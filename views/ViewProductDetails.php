@@ -24,9 +24,6 @@ $data = [
     ]]
 ];
 
-#Création du chart
-$options = ['responsive' => true];
-$Line = new ChartJS('line', $data, $options);
 
 #stock actuel du produit courrant
 
@@ -37,7 +34,12 @@ foreach(array_reverse($psd) as $date => $value){
     array_push($data['labels'], $date);
     array_push($data['datasets'][0]['data'], $value);
 }
+
 $stock_current_product = $data['datasets'][0]['data'][4];
+
+#Création du chart
+$options = ['responsive' => true];
+$Line = new ChartJS('line', $data, $options);
 ?>
 
 
@@ -100,9 +102,6 @@ $stock_current_product = $data['datasets'][0]['data'][4];
         </div>
     </div>
 <!-- </div> -->
-
-
-
 
 <script>
     window.onload = ((function() {

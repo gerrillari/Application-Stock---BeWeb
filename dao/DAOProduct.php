@@ -115,7 +115,9 @@ class DAOProduct extends DAO {
         
         $flux = $actualStock['quantity'] - $resultShipment + $resultCommand;
 
-        print($flux);
+        echo '<pre>';
+        // var_dump($actualStock);
+        echo '</pre>';
 
       return $flux;
 
