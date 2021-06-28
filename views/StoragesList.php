@@ -31,13 +31,13 @@
 							<td>
 								<div class="progress progress-xs">
 									<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($status[$index]["delivery"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%">
-										<span class=""><?=round((($status[$index]["delivery"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%</span>
+										<span class=""></span>
 									</div>
 									<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($status[$index]["stock"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%">
-										<span class=""><?=round((($status[$index]["stock"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%</span>
+										<span class=""></span>
 									</div>
 									<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: <?=round((($status[$index]["command"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%">
-										<span class=""><?=round((($status[$index]["command"]*$status[$index]["sizeproduct"])/$status[$index]["sizestorage"])*100,2)?>%</span>
+										<span class=""></span>
 									</div>
 								</div>
 							</td>

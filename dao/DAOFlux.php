@@ -15,16 +15,27 @@ class DAOFlux extends DAO{
  * la taille limit et la date de commencement de toute les livraison non finit
  **/ 
 
-function getCurrentDeliveries(){
+function getCurrentDeliveries($offset){
 
     $query = "SELECT id 
               FROM shipment
-              WHERE dateend IS NULL";
+              WHERE dateend IS NULL
+              LIMIT {$offset},50";
 
     return $this->getPdo()->query($query)->fetchAll(PDO::FETCH_ASSOC);
    
 }
 
+function getMaxDeliveries(){
+    
+    $query = "SELECT id 
+    FROM shipment
+    WHERE dateend IS NULL
+    ";
+
+    return count($this->getPdo()->query($query)->fetchAll(PDO::FETCH_ASSOC));
+
+}
 
 /**
  * Retourne le nom et l'adresse de l'entrepôt d'origine et de destination de la livraison

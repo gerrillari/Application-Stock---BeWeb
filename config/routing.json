@@ -7,9 +7,9 @@
         "POST":"ProductController:updateDetails"
     },
     "/test": "DefaultController:cc",
-    "/storages": "DefaultController:getAllStorages",
+    "/storages": "StorageController:getAllStorages",
     "/storage/(:)": {
-        "GET": "DefaultController:getStorage"
+        "GET": "StorageController:getStorage"
      },
     "/flux": "FluxController:renderList",
     "/flux/(:)": "FluxController:renderDetail",

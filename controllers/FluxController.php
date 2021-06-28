@@ -142,7 +142,9 @@ class FluxController extends SecurizedController
 
         $datas = array();
 
-        $dels =  (new DAOFlux())->getCurrentDeliveries();
+        $offset = isset($_GET["offset"]) ? $_GET["offset"] : 0;
+
+        $dels =  (new DAOFlux())->getCurrentDeliveries($offset);
 
         foreach($dels as $del){
       
@@ -153,6 +155,9 @@ class FluxController extends SecurizedController
         include ("./views/head.php");
         include ("./views/sidebar.php");
         $this->render("FluxList",array("data"=>$datas ));
+        
+        $this->render("pagination",array(
+        "totalToLoad"=>(new DAOFlux)->getMaxDeliveries()));
     }
 
     //Affiche la vue 
