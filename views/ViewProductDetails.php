@@ -32,6 +32,9 @@ $data = [
  */
 foreach(array_reverse($psd) as $date => $value){
     array_push($data['labels'], $date);
+}
+
+foreach($psd as $date => $value){
     array_push($data['datasets'][0]['data'], $value);
 }
 
