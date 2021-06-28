@@ -1,5 +1,5 @@
 {
-    "/": "DashboardController:getDashboard",
+    "/": "DashboardController:renderDashboard",
     "/products" : "ProductController:renderList",
     "/products/" : "ProductController:renderList",
     "/products/(:)" :{
