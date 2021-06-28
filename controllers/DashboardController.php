@@ -15,13 +15,34 @@ class DashboardController extends Controller {
         parent::__construct();
     }
 
+    /**
+     * Renvoie la vu du dashboard
+     */
     public function renderDashboard(){
+        if( (new DAOProduct())->getProductThresh() != NULL ){
+            $data = array(
+                "prodsThresh" => (new DAOProduct())->getProductThresh()
+            );
+            include ("./views/head.php");
+            include ("./views/sidebar.php");
+            $this->render("dashboard", $data);
+            
+        }else{
+            $this->renderEmptyDashboard();
+        }
 
-        $data = array(
-            "prodsThresh" => (new DAOProduct)->getProductThresh()
-        );
+
+    }
+
+    /**
+     * Renvoie la page dashboard s'il n'y a pas de produit sous le seuil
+     */
+    public function renderEmptyDashboard(){
+
         include ("./views/head.php");
         include ("./views/sidebar.php");
-        $this->render("dashboard", $data);
+        
+        $this->render("emptyDashboard");
+
     }
 }

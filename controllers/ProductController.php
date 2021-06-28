@@ -66,6 +66,9 @@ class ProductController extends Controller {
         $this->render("ViewProductDetails", $data);
     }
 
+    /**
+     * Renvoie ma vue + envoie une requete sql pour edit le seuil d'un produit
+     */
     public function updateDetails(){
         $currentid = end(explode("/", $_SERVER["REQUEST_URI"]));
 

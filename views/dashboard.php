@@ -44,6 +44,7 @@
         color: white;
         background: red;
         border-radius: 5px;
+		padding: 2px;
     }
 
 	.popup {

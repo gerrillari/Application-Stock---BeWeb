@@ -9,33 +9,6 @@ class DAOProduct extends DAO {
         parent::__construct();
     }  
 
-
-    #functions abtraite a implémenter pour utilisé le DAO
-    public function create($array){
-
-    }
-    
-    public function retrieve($id){
-
-    }
-    
-    public function update($array){
-
-    }
-    
-    public function delete($id){
-        
-    }
-
-    public function getAll(){
-
-    }
-    
-    public function getAllBy($filter){
-
-    }
-
-
     /**
      * Retourne le stock du produit passé en argument.
      */
@@ -121,11 +94,28 @@ class DAOProduct extends DAO {
 
     }
 
+    /**
+     * Retourne le produit si le seuil est inférieur ou égal a la quantité
+     */
     public function getProductThresh(){
         return $this->getPdo()->query("SELECT item.id, product.description, product.price, product.weight, product.size, product.name, item.quantity FROM item INNER JOIN product on item.productid = product.id WHERE item.quantity <= item.threshold")->fetchAll(PDO::FETCH_ASSOC);
     }
 
 
+
+
+
+    #functions abtraite a implémenter pour utilisé le DAO
+    public function create($array){}
     
+    public function retrieve($id){}
+    
+    public function update($array){}
+    
+    public function delete($id){}
+
+    public function getAll(){}
+    
+    public function getAllBy($filter){}
 }
 
