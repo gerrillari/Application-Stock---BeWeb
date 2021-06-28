@@ -20,6 +20,6 @@ abstract class SecurizedController extends Controller{
         session_start();
         $_SESSION['REDIRECT_URL'] = $_SERVER['REDIRECT_URL'];
         // on verifie que le client a été authentifié sinon on le redirige vers le login (ou authentification)
-        if(!$this->security->acceptConnexion()) header("Location: http://localhost:4545/login");
+        if(!$this->security->acceptConnexion()) header("Location: http://{$_SERVER['HTTP_HOST']}/login");
     }
 }

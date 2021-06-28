@@ -26,7 +26,7 @@ class AuthenticationController extends Controller{
     public function logout()
     {
         $this->security->deactivate();
-        header("Location: http://" . $_SERVER['SERVER_NAME'] . ":4545/login");
+        header("Location: http://" . $_SERVER['HTTP_HOST'] . "/login");
     }
 
 
@@ -68,7 +68,7 @@ class AuthenticationController extends Controller{
           $this->security->generateToken($user);
           // rediection vers la page demandée AVANT le processus de login
           session_start();
-          header("Location: http://localhost:4545".$_SESSION['REDIRECT_URL']);
+          header("Location: http://{$_SERVER['HTTP_HOST']}".$_SESSION['REDIRECT_URL']);
         }catch(League\OAuth2\Client\Provider\Exception\IdentityProviderException $e){
             //rediriger sur une page d'erreur
             
