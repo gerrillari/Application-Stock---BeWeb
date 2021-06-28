@@ -22,7 +22,7 @@
 									<tr>
 										<td>
 											<img src="http://image.noelshack.com/fichiers/2021/25/6/1624720676-avatar1.png" alt="">
-											<a class="link" href="http://localhost:5656/products/<?=$prodThresh['id'] ?>">
+											<a class="link" href="http://<?=$_SERVER['HTTP_HOST']?>/products/<?=$prodThresh['id'] ?>">
 												<p  class="user-link"><?= $prodThresh['name'] ?></p>
 												<span class="user-subhead"><?= $prodThresh['description'] ?></span>
 											</a>	
