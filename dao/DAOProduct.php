@@ -123,6 +123,10 @@ class DAOProduct extends DAO {
 
     }
 
+    public function getProductThresh(){
+        return $this->getPdo()->query("SELECT item.id, product.description, product.price, product.weight, product.size, product.name, item.quantity FROM item INNER JOIN product on item.productid = product.id WHERE item.quantity <= item.threshold")->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     
 }
