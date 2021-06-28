@@ -56,7 +56,7 @@ $Line = new ChartJS('line', $data, $options);
         <div class="col-lg-3 form" id="form">
             <h3>Set Products Threshold</h3>
             <form method="post">
-                <label>Actual stock</label><br>
+                <label>Current stock</label><br>
                 <input type="text" value="<?= $stock_current_product ?>" disabled="disabled"><br><br>
 
                 <label>Set threshold</label><br>

@@ -152,8 +152,7 @@ class FluxController extends SecurizedController
 
         include ("./views/head.php");
         include ("./views/sidebar.php");
-        $this->render("FluxList",array("data"=>$datas));
-
+        $this->render("FluxList",array("data"=>$datas ));
     }
 
     //Affiche la vue 
@@ -163,8 +162,10 @@ class FluxController extends SecurizedController
 
         include ("./views/head.php");
         include ("./views/sidebar.php");
-        $this->render("FluxDetail",array(   "path"=>((new DAOFlux())->getDeliveryPath($currentId)),
-                                            "products"=>((new DAOFlux())->getDeliveryProducts($currentId))));
+
+        $this->render("FluxDetail",array(
+        "path"=>((new DAOFlux())->getDeliveryPath($currentId)),
+        "products"=>((new DAOFlux())->getDeliveryProducts($currentId))));
     }
 
 }

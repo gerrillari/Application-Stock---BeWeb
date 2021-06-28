@@ -1,6 +1,8 @@
 
-
 <body class="h-screen overflow-hidden flex flex-col items-center justify-center">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <div class="w-3/4 flex flex-col items-center justify-center h-screen select-none">
     
@@ -53,11 +55,11 @@
     <tbody class="text-gray-700">
     <?php foreach($products as $product): ?>
       <tr>
-        <td class="w-1/3 text-left py-3 px-4"><a class="hover:text-blue-500" href="#"><?= $product["name"] ?></td>
+        <td class="w-1/3 text-left py-3 px-4"><a class="hover:text-blue-500" href="http://<?="{$_SERVER['HTTP_HOST']}/products/{$product["id"]}"?>"><?= $product["name"] ?></td>
         <td class="w-1/3 text-left py-3 px-4"><?= $product["weight"] ?></td>
-        <td class="text-left py-3 px-4"><?= $product["size"] ?></a></td>
+        <td class="text-left py-3 px-4"><?= $product["size"] ?>m³</a></td>
         <td class="text-left py-3 px-4"><?= $product["weight"]*$product["quantity"] ?></a></td>
-        <td class="w-1/3 text-left py-3 px-4"><?= $product["size"]*$product["quantity"] ?></td>
+        <td class="w-1/3 text-left py-3 px-4"><?= $product["size"]*$product["quantity"] ?>m³</td>
         <td class="w-1/3 text-left py-3 px-4"><?= $product["quantity"]?></td>
       </tr>
     <?php endforeach ?>

@@ -106,7 +106,6 @@
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
             "time": "2017-06-27T22:17:23+00:00"
-<<<<<<< HEAD
         },
         {
             "name": "nnnick/chartjs",
@@ -208,8 +207,6 @@
                 "instantiate"
             ],
             "time": "2015-06-14T21:17:01+00:00"
-=======
->>>>>>> login
         },
         {
             "name": "guzzlehttp/guzzle",
