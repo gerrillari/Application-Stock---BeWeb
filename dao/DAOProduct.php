@@ -87,7 +87,7 @@ class DAOProduct extends DAO {
         $shipmentQty = $this->getPdo()->query(
             "SELECT shipment_item.quantity, shipment.dateend FROM shipment_item 
                 INNER JOIN shipment ON shipment.id = shipment_item.shipmentid
-            WHERE shipment_item.itemid = '${idProduct}' AND shipment.dateend <= '${date}'"
+            WHERE shipment_item.itemid = '${idProduct}' AND shipment.dateend < '${date}'"
             )->fetchAll(PDO::FETCH_ASSOC);
             
             #calculer chaque element du tableaux
@@ -100,7 +100,7 @@ class DAOProduct extends DAO {
         $commandQty = $this->getPdo()->query(
             "SELECT command_item_storage.quantity, command.dateend FROM command_item_storage
                 INNER JOIN command ON command.id = command_item_storage.commandid
-            WHERE command_item_storage.itemid = '${idProduct}' AND command.dateend <= '${date}' "
+            WHERE command_item_storage.itemid = '${idProduct}' AND command.dateend < '${date}' "
         )->fetchAll(PDO::FETCH_ASSOC);
 
         
@@ -112,12 +112,10 @@ class DAOProduct extends DAO {
             $resultCommand += $command['quantity'];
         }
         
-        
-        $flux = $actualStock['quantity'] - $resultShipment + $resultCommand;
+    
 
-        echo '<pre>';
-        // var_dump($actualStock);
-        echo '</pre>';
+        $flux = $actualStock[0]['quantity'] - $resultShipment + $resultCommand;
+
 
       return $flux;
 
