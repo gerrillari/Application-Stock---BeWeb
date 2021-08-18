@@ -3,133 +3,41 @@
 
 Accès au repository GitHub du projet : https://github.com/gerrillari/Application-Stock---BeWeb
 
-=======
-# FRAMEWORK PHP MVC BEWEB 
-## Description
-Ce projet est une etude de php a travers la mise en place d'un "framework" basé sur le modèle mvc   
-Cette implémentation est le résultat du TD mis en place au sein de l'ecole beWeb.   
+# Objectif
 
-## Installation
-1. clonez le dépôt a la racine de votre serveur web.
-2. mettez en place les virtualhosts (si necessaire).
-3. installez les dépendances avec la commande : composer install
-4. configurez les accés en base de données dans le fichier database.json
-5. effetuez une requette http a la racine (ex : http://php-mvc.bwb/)
-6. Vous devrez voir apparaitre le texte suivant : FRAMEWORK MVC PHP beWeb
+Concernant le projet interne des CDA (Pauline Ricard) sur un site e-commerce, nous avons divisé le cadre de travail en 4 fonctionnalités :
 
-## Structure
-Le framework s'appuie sur le modèle MVC afin de s'assurer la séparation des tâches.   
-Il est donc livré avec les dossiers et les fichiers permettant de pouvoir travailler sur la logique métier.   
+e-commerce : vente en ligne des produits
+application des tests des produits : chaîne de production
+gestion des employés (RH) : intégration des nouveaux employés et pointage
+gestion du stock : stock de matière première qui évolue vers le produit fini
+Notre groupe concerne la gestion du stock.
 
-1. Le dossier core/   
-il contient tous les fichiers necessaires au fonctionnement du framework. 
-2. Le dossier config/   
-Contient les fichiers de configuration :
- * database.json : configuration de la base de données
- * routing.json : configuration du mapping entre les routes et les controleurs
-3. Le dossier controllers/   
-Doit contenir les controleurs qui vont être invoqués lors des requêtes http
-4. Le dossier dao/   
-Doit contenir les fichiers DAO pour l'accés aux données
-5. Le dossier models/   
-Doit contenir les entités correspondant a la logique metier de l'application
-6. Le dossier views/   
-Doit contenir toutes les vues de l'application
-7. Le dossier vendor/   
-Qui contient les dépendances récupérées via composer
-8. A la racine   
- * le fichier index.php qui est le point d'entrée de l'application
- * le fichier composer.json qui est le fichier de configuration de composer
- * le fichier .htaccess qui override la configuration d'apache (assurez vous d'avoir le mod_rewrite activé et opérationnel)
- * le fichier .gitignore qui exclu des commit le dossier vendor et le fichier composer.lock (fichiers générés par composer) 
+Ca concerne la gestion des stock, la gestion des flux entrants (livraisons) et des flux sortants (commandes). Ainsi que l'information relative aux entrepôts et produits, mais aussi les commandes-livraisons. Nous avons 3 objets principaux : produits, flux et entrepôts.
 
-## Fonctionnement
+Les produits ça va concerner visualiser les informations de chaque produit (prix, quantité, description,...), alerter lorsque le stock d'un produit est insuffisant qui ira vers le dashboard afin de pouvoir modifier les commandes et livraisons, connaître la disponibilité par entrepôt et un graphe avec les informations relatives au stock de ce produit et ses commandes-livraisons.
+Les flux ça va concerner les commandes et livraisons. Plus précisément, les informations relatives aux commandes-livraisons (origine-destination) en cours et la modification des livraisons (comme sa destination).
+Les entrepôts ça va concerner les informations relatives aux différents entrepôts (adresse, statut,...), le détail par entrepôt comme où il est situé, un graphe avec les informations relatives au stock des produit et les commandes-livraisons dans le temps, ainsi qu'une liste des produits disponibles dans cet entrepôt.
 
-### Prise en main
+# Organisation
 
-### Controller
-Les fichiers controllers contiennent les methodes qui seront invoquées par l'objet Routing.   
-L'implémentation des methodes correspond aux traitements effectués par le backend.  
+Le projet dure 2 semaines (14 au 25 juin 2021) et on travaille en méthode AGILE, ce qui veut dire que chaque matin on fait un daily scrum de 5 minutes afin de raconter ce qu'on a fait la veille, remonter les difficultés et dire notre programme de la journée. Ainsi, le vendredi 18 juin on va faire une rétrospective de la semaine de 16h30 à 17h, ainsi il faudra envoyer un mail personnel à Loïc avec notre rétrospective de la semaine. Lundi 21 juin on fera un SCRUM pour fixer les objectifs de la semaine et vendredi 25 juin on fera une autre rétrospective de la semaine et la présentation du projet dans l'après-midi.
 
-Il faut creer une nouvelle classe héritant de Controller dans le dossier controllers/.   
-Vous allez implémenter les méthodes décrites dans le fichier routing.json :   
-```
-{
-    "/home":"ViewController:getHome"
-}
-```
-dans le fichier ViewController.php :   
-```
-class ViewController extends Controller{
+1 interlocuteur par groupe. 1 branche = 1 feature. Chaque soir à 16h30 il faudra pousser nos commits.
 
-    public function getHome(){
-        // traitement de la methode 
-    }
-}
-```
-vous pouvez acceder aux superglobales $_GET & $_POST via les methodes : 
-````
-inputGet();
-inputPost();
-````
-Pour retourner une vue vous devez utiliser la methode render qui prend en premier argument le nom du fichier de vue se trouvant dans le dossier views/.   
-vous pouvez organiser vos vues avec des sous dossiers dans ce cas vous renseignez les sous dossiers (sousdossier/fichier).   
-le deuxième argument est un tableau associatif "nomdeLavariable" => valeur.  
+Tous les 3 allons réaliser à peu près le même type de travail de développement web mais sur différents objets :
+- Valentin s'occupe des flux entrants et sortants.
+- Alexandre s'occupe des produits.
+- Tamara s'occupe des entrepôts.
 
-par exemple pour retourner une vue affichant un utilisateur :   
+# Agenda
 
-ViewController.php :
-````
-class ViewController extends Controller{
-    
-    public function getUser(){
-        $data = array(
-            "user"=>(new DAOUser())->retrieve(1)
-        );
-        $this->render("vue_user",$data);
-    }
-}
-````
-user.php :
-````
-<?php
-    echo $user->getId(); 
-    
-````
-La valeur de clé du tableau associatif est le nom de la variable dans le fichier de vue.   
+La première semaine va consister en le maquettage de l'interface utilisateur (vues + component -> zoning + wireframing), la conception de la BDD (MCD + MLD + MySQL), la mise en place de la WIKI dans GIT, la mise en place de notre espace de travail et la réflexion (pseudo-code) sur les méthodes à utiliser, les requêtes, les controlleurs, les modèles, ... afin que la semaine suivante on se concentre sur traduire tout ceci sous forme de code sans avoir à perdre du temps sur comment faire.
 
+La deuxième semaine va consister en l'implémentation : coder. On verra aussi ensemble la partie du login et les droits d'accès.
 
-### DAO
+# Fonctionalitées
 
-### views
-
-### Security middleware
-Le security middleware utilise firebase\JWT pour determiner l'identité du client. Le mécanisme laisse le développeur libre d'implémenter le fonctionnement de la sécurité à sa convenance.   
-Par défaut :
-* la création du token s'appuie sur l'utilisateur passé a la méthode et envoie un cookie nommé "tkn" au client. 
-* La vérification de l'identité du client s'appuie sur le cookie qui transite.   
-* Le cookie a une duré de vie d' une journée
-* Une variable $user est disponible dans la vue avec les données contenues dans le cookie (le nom de l'utilisateur + la liste des roles)
-
-La classe DefaultController montre un exemple d'utilisation : 
-* La methode securityLoader() charge le middleware
-* L'entité qui va servir pour la generation du token DOIT implémenter UserInterface (voir la classe DefaultModel)
-* La methode generateToken(UserInterface $user) utilise les methode getUsername() & getRoles() de l'utilisateur passé en argument comme données du token
-* La methode acceptConnexion() retourne les données du token (payload) contenu dans le cookie ou faux si le token leve des exceptions
-* La methode deactivate() supprime le cookie qui correspond a une deconnexion.
-
-Il est possible de changer la date d'expiration du cookie via la methode setExpiration(lifetime) où lifetime est le nombre de secondes que doit vivre le cookie. (à invoquer apres le chargement du middleware).   
-
-La propriété $passport correspond a la passphrase pour "saler" le token, utilisez une phrase passée dans une moulinette genre sha.   
-
-Dans les vues retournées par la methode render($path,$datas) de la classe Controller vous avez a votre disposition la variable $user de type objet, qui contient les données retournées par les methodes getRoles() et getUsername() de l'objet passé a la methode generateToken(UserInterface $user).
-
-## Tips
-### Customization du framework
-Utiliser un plugin ou un framework, limite le travail aux opérations prévues. Pour étendre les fonctionnalités de l'outils, il ne faut jamais modifier directement les fichiers.   
-La meilleure approche est d'utiliser l'heritage et la composition pour customiser le core.   
-Par exemple si les contrôleurs concrets implémentent les mêmes algorithmes, il est interressant de factoriser dans un super contrôleur heritant de la classe Controller, et de faire hériter vos contrôleurs concrets de cette nouvelles classe.
-
-### The web
-Les fichiers css, les images, les scripts js peuvent être mis dans un dossier assets a la racine du projet ( toutes vues sont retournées depuis le fichier index.php ). N'hesitez pas a mettre un dossier download/.
->>>>>>> 679db7f84bca0b68c6828ba7a7b95486484502a6
+Permettre à un utilisateur de suivre le stocks, et l'évolution du stock de ses produits.
+Permettre à un utilisateur de suivre le stocks, et l'évolution du stock de ses entrepôts.
+Permettre à un utilisateur de suivre les livraison en direction des entrepôts et de pouvoir les modifier.
