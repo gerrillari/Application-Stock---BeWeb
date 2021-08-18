@@ -1,0 +1,34 @@
+{
+    "/": "DashboardController:renderDashboard",
+    "/products" : "ProductController:renderList",
+    "/products/" : "ProductController:renderList",
+    "/products/(:)" :{
+        "GET":"ProductController:renderDetails",
+        "POST":"ProductController:updateDetails"
+    },
+    "/test": "DefaultController:cc",
+    "/storages": "StorageController:getAllStorages",
+    "/storage/(:)": {
+        "GET": "StorageController:getStorage"
+     },
+    "/flux": "FluxController:renderList",
+    "/flux/(:)": "FluxController:renderDetail",
+    "/login": "AuthenticationController:signin",
+    "/logout": "AuthenticationController:logout",
+    "/callback": "AuthenticationController:callback",
+    "/json": "DefaultController:getJSON",
+    "/api/default":{
+        "GET":"DefaultController:getDatasFromGET",
+        "POST":"DefaultController:getDatasFromPOST",
+        "PUT":"DefaultController:getDatasFromPUT",
+        "DELETE":"DefaultController:delete"
+    },
+    "/api/default/(:)":{
+        "GET":"DefaultController:getByValue"
+    },
+    "/files/upload-form":"DefaultController:getViewFiles",
+    "/files/upload":{
+        "POST": "DefaultController:uploadFiles"
+    }
+}
+
