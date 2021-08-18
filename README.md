@@ -1,6 +1,8 @@
 <<<<<<< HEAD
 # APPLICATION-STOCK
 
+Accès au repository GitHub du projet : https://github.com/gerrillari/Application-Stock---BeWeb
+
 =======
 # FRAMEWORK PHP MVC BEWEB 
 ## Description
