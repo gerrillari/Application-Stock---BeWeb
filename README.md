@@ -41,3 +41,20 @@ La deuxième semaine va consister en l'implémentation : coder. On verra aussi e
 Permettre à un utilisateur de suivre le stocks, et l'évolution du stock de ses produits.
 Permettre à un utilisateur de suivre le stocks, et l'évolution du stock de ses entrepôts.
 Permettre à un utilisateur de suivre les livraison en direction des entrepôts et de pouvoir les modifier.
+
+# Membres de l'équipe :
+- Tamara ALCALA JIMENEZ
+- Alexandre LABSI
+- Valentin CREUILLENET
+
+# Technologies présentes dans le projet :
+- Bootstrap 4
+- Chart JS
+- Docker et container PHP.8.0-apache
+- Framework beWeb PHP MVC
+- MySQL Workbench
+- SGBDR mysql dans un container Docker
+
+# Database
+
+![image](https://user-images.githubusercontent.com/36443636/129893757-ff91e434-08fb-447b-b162-7054eaa5822e.png)
